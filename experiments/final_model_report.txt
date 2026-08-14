@@ -1,0 +1,30 @@
+Drug-Microbe Interaction Prediction
+Final Model Selection Report
+============================================================
+
+MODEL PERFORMANCE
+------------------------------------------------------------
+GAT: Accuracy=0.6708, Precision=0.6830, Recall=0.6374, F1=0.6594, ROC-AUC=0.7444
+HaGAT: Accuracy=0.6940, Precision=0.7615, Recall=0.5650, F1=0.6487, ROC-AUC=0.7200
+GCN: Accuracy=0.6801, Precision=0.7218, Recall=0.5860, F1=0.6469, ROC-AUC=0.7396
+
+BEST MODEL BY METRIC
+------------------------------------------------------------
+Accuracy: HaGAT
+Precision: HaGAT
+Recall: GAT
+F1: GAT
+ROC-AUC: GAT
+
+FINAL MODEL
+------------------------------------------------------------
+Selected Model: GAT
+Overall Score: 0.6790
+
+RESEARCH INTERPRETATION
+------------------------------------------------------------
+GAT achieved the highest overall performance among the evaluated models.
+The result indicates that attention-based message passing provides a strong baseline for drug-microbe interaction prediction.
+
+The ROC-AUC score is considered important because it evaluates the model's ability to distinguish interacting and non-interacting drug-microbe pairs across classification thresholds.
+F1-score provides a balance between precision and recall and is particularly useful when both false positives and false negatives matter.

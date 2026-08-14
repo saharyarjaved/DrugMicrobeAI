@@ -1,0 +1,14 @@
+[project]
+name = "drug-microbe-backend"
+version = "0.1.0"
+requires-python = "==3.12.*"
+dependencies = [
+  "fastapi",
+  "pydantic",
+  "pandas",
+  "numpy",
+  "argon2-cffi",
+  "PyJWT",
+  "torch==2.13.0",
+  "torch-geometric==2.8.0.post1"
+]

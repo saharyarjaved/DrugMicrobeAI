@@ -1,0 +1,47 @@
+# Virtual Environment
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model Files
+*.pth
+*.pt
+
+# VS Code
+.vscode/
+
+# Dataset (optional)
+data/raw/.venv/
+.venv312/
+.venv_py314/
+**/__pycache__/
+*.pyc
+frontend/node_modules/
+frontend/.next/
+data/auth.db
+data/auth.db
+data/auth.db
+.vercel
+server/build/
+server/*.egg-info/
+saved_models/
+!saved_models/
+saved_models/*
+!saved_models/best_hagat_model.pth
+.venv/
+.venv*/
+.vercel/
+node_modules/
+frontend/.next/
+server/.vercel/
+server/build/
+server/*.egg-info/
+.env
+.env.*
+!.env.example
+data/auth.db
