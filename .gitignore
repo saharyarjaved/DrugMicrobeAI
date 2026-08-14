@@ -1,47 +1,51 @@
-# Virtual Environment
+# Python virtual environments
 .venv/
+.venv*/
+venv/
+myenv/
+.venv_py314/
 
-# Python
+# Python cache
 __pycache__/
+**/__pycache__/
 *.pyc
+*.pyo
 
 # Jupyter
 .ipynb_checkpoints/
 
-# Model Files
-*.pth
-*.pt
-
 # VS Code
 .vscode/
 
-# Dataset (optional)
-data/raw/.venv/
-.venv312/
-.venv_py314/
-**/__pycache__/
-*.pyc
+# Node / Next.js
+node_modules/
 frontend/node_modules/
 frontend/.next/
-data/auth.db
-data/auth.db
-data/auth.db
-.vercel
-server/build/
-server/*.egg-info/
-saved_models/
-!saved_models/
-saved_models/*
-!saved_models/best_hagat_model.pth
-.venv/
-.venv*/
+.next/
+
+# Vercel
 .vercel/
-node_modules/
-frontend/.next/
 server/.vercel/
-server/build/
-server/*.egg-info/
+
+# Environment / secrets
 .env
 .env.*
 !.env.example
+
+# Local database
 data/auth.db
+
+# Build artifacts
+server/build/
+server/*.egg-info/
+
+# Model files
+*.pth
+*.pt
+
+# Keep the main HaGAT model required for deployment
+saved_models/*
+!saved_models/best_hagat_model.pth
+
+# Raw/local environment data
+data/raw/.venv/
