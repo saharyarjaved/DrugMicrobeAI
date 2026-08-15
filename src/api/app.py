@@ -586,6 +586,15 @@ def signup(request: SignupRequest):
             detail=str(error),
         )
 
+    except Exception as error:
+        import traceback
+        traceback.print_exc()
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Signup database/server error: {type(error).__name__}: {error}",
+        )
+
 
 @app.post("/auth/login")
 def login(request: LoginRequest):
