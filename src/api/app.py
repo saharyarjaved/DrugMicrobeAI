@@ -8,6 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.inference.predict_hagat import predict_interaction
+
 from src.auth.auth import (
     create_user,
     authenticate_user,
@@ -16,6 +17,8 @@ from src.auth.auth import (
     decode_token,
     reset_password,
 )
+
+from src.auth.database import init_db
 
 
 # ============================================================
@@ -28,6 +31,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
+init_db()
 
 # ============================================================
 # Project Paths
@@ -115,116 +119,6 @@ except Exception as error:
 class PredictionRequest(BaseModel):
     drug_id: int
     microbe_id: int
-
-
-def build_graph_explanation(
-    drug_id: int,
-    microbe_id: int,
-):
-    # Graph-context explanation.
-    # This does not claim to expose internal GAT attention weights.
-
-    if df.empty:
-        return {
-            "type": "graph_context",
-            "drug_neighbors": [],
-            "microbe_neighbors": [],
-            "common_neighbors": [],
-            "drug_neighbor_count": 0,
-            "microbe_neighbor_count": 0,
-            "common_neighbor_count": 0,
-        }
-
-    required = {"Drug_ID", "Microbe_ID", "Drug", "Microbe"}
-
-    if not required.issubset(df.columns):
-        return {
-            "type": "graph_context",
-            "drug_neighbors": [],
-            "microbe_neighbors": [],
-            "common_neighbors": [],
-            "drug_neighbor_count": 0,
-            "microbe_neighbor_count": 0,
-            "common_neighbor_count": 0,
-        }
-
-    drug_rows = df[df["Drug_ID"] == drug_id]
-
-    drug_neighbor_ids = set(
-        int(value)
-        for value in drug_rows["Microbe_ID"].dropna().tolist()
-    )
-
-    microbe_rows = df[df["Microbe_ID"] == microbe_id]
-
-    microbe_neighbor_ids = set(
-        int(value)
-        for value in microbe_rows["Drug_ID"].dropna().tolist()
-    )
-
-    drug_neighbors = (
-        df[df["Microbe_ID"].isin(drug_neighbor_ids)]
-        [["Microbe_ID", "Microbe"]]
-        .drop_duplicates()
-        .sort_values("Microbe_ID")
-        .head(8)
-    )
-
-    microbe_neighbors = (
-        df[df["Drug_ID"].isin(microbe_neighbor_ids)]
-        [["Drug_ID", "Drug"]]
-        .drop_duplicates()
-        .sort_values("Drug_ID")
-        .head(8)
-    )
-
-    common_drug_ids = set()
-
-    for neighbor_microbe_id in drug_neighbor_ids:
-        common_drug_ids.update(
-            int(value)
-            for value in df[
-                df["Microbe_ID"] == neighbor_microbe_id
-            ]["Drug_ID"].dropna().tolist()
-        )
-
-    common_drug_ids.discard(int(drug_id))
-
-    common_neighbors = (
-        df[df["Drug_ID"].isin(common_drug_ids)]
-        [["Drug_ID", "Drug"]]
-        .drop_duplicates()
-        .sort_values("Drug_ID")
-        .head(8)
-    )
-
-    return {
-        "type": "graph_context",
-        "drug_neighbors": [
-            {
-                "id": int(row["Microbe_ID"]),
-                "name": str(row["Microbe"]),
-            }
-            for _, row in drug_neighbors.iterrows()
-        ],
-        "microbe_neighbors": [
-            {
-                "id": int(row["Drug_ID"]),
-                "name": str(row["Drug"]),
-            }
-            for _, row in microbe_neighbors.iterrows()
-        ],
-        "common_neighbors": [
-            {
-                "id": int(row["Drug_ID"]),
-                "name": str(row["Drug"]),
-            }
-            for _, row in common_neighbors.iterrows()
-        ],
-        "drug_neighbor_count": len(drug_neighbor_ids),
-        "microbe_neighbor_count": len(microbe_neighbor_ids),
-        "common_neighbor_count": len(common_drug_ids),
-    }
 
 
 # ============================================================
@@ -335,112 +229,31 @@ def get_microbes():
 # ============================================================
 
 @app.post("/predict")
-def predict(
-    request: PredictionRequest,
-    authorization: str | None = Header(default=None),
-):
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(
-            status_code=401,
-            detail="Authorization token required.",
-        )
-
-    token = authorization[7:].strip()
-    payload = decode_token(token)
-
-    if payload is None:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid or expired token.",
-        )
-
-    user_id = payload.get("user_id")
-
-    if not isinstance(user_id, int):
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid token payload.",
-        )
+def predict(request: PredictionRequest):
 
     try:
+
         result = predict_interaction(
             request.drug_id,
             request.microbe_id,
         )
 
-        probability = float(
-            result.get("probability", 0.0)
-        )
-
-        result["explanation"] = build_graph_explanation(
-            request.drug_id,
-            request.microbe_id,
-        )
-
-        drug_rows = df.loc[
-            df["Drug_ID"] == request.drug_id,
-            "Drug",
-        ]
-
-        microbe_rows = df.loc[
-            df["Microbe_ID"] == request.microbe_id,
-            "Microbe",
-        ]
-
-        drug_name = (
-            str(drug_rows.iloc[0])
-            if not drug_rows.empty
-            else f"Drug {request.drug_id}"
-        )
-
-        microbe_name = (
-            str(microbe_rows.iloc[0])
-            if not microbe_rows.empty
-            else f"Microbe {request.microbe_id}"
-        )
-
-        from datetime import datetime, timezone
-        from src.auth.database import get_connection
-
-        connection = get_connection()
-
-        try:
-            connection.execute(
-                """
-                INSERT INTO prediction_history (
-                    user_id,
-                    drug_id,
-                    microbe_id,
-                    drug_name,
-                    microbe_name,
-                    prediction,
-                    created_at
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    user_id,
-                    request.drug_id,
-                    request.microbe_id,
-                    drug_name,
-                    microbe_name,
-                    probability,
-                    datetime.now(timezone.utc).isoformat(),
-                ),
-            )
-
-            connection.commit()
-
-        finally:
-            connection.close()
-
         return result
 
     except ValueError as error:
+
         raise HTTPException(
             status_code=400,
             detail=str(error),
         )
+
+    except Exception as error:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(error),
+        )
+
 
 # ============================================================
 # HaGAT Evaluation
@@ -838,6 +651,10 @@ def save_history(
     from datetime import datetime, timezone
     from src.auth.database import get_connection
 
+    # --------------------------------------------------------
+    # Check Authorization
+    # --------------------------------------------------------
+
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(
             status_code=401,
@@ -845,6 +662,7 @@ def save_history(
         )
 
     token = authorization[7:].strip()
+
     payload = decode_token(token)
 
     if payload is None:
@@ -853,28 +671,21 @@ def save_history(
             detail="Invalid or expired token.",
         )
 
-    token_user_id = payload.get("user_id")
+    user_id = payload.get("user_id")
 
-    if not isinstance(token_user_id, int):
+    if not isinstance(user_id, int):
         raise HTTPException(
             status_code=401,
             detail="Invalid token payload.",
         )
 
+    # --------------------------------------------------------
+    # Save Prediction
+    # --------------------------------------------------------
+
     connection = get_connection()
 
     try:
-        user = connection.execute(
-            "SELECT id FROM users WHERE id = ?",
-            (token_user_id,),
-        ).fetchone()
-
-        if user is None:
-            raise HTTPException(
-                status_code=404,
-                detail="User not found.",
-            )
-
         cursor = connection.execute(
             """
             INSERT INTO prediction_history (
@@ -889,7 +700,7 @@ def save_history(
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                token_user_id,
+                user_id,
                 request.drug_id,
                 request.microbe_id,
                 request.drug_name,
@@ -904,60 +715,24 @@ def save_history(
         return {
             "success": True,
             "history_id": cursor.lastrowid,
-            "user_id": token_user_id,
+            "user_id": user_id,
         }
+
+    except Exception as error:
+        connection.rollback()
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(error),
+        )
 
     finally:
         connection.close()
 
 
-
-@app.delete("/history")
-def clear_history(
-    authorization: str | None = Header(default=None),
-):
-    from src.auth.database import get_connection
-
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(
-            status_code=401,
-            detail="Authorization token required.",
-        )
-
-    token = authorization[7:].strip()
-    payload = decode_token(token)
-
-    if payload is None:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid or expired token.",
-        )
-
-    user_id = payload.get("user_id")
-
-    if not isinstance(user_id, int):
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid token payload.",
-        )
-
-    connection = get_connection()
-
-    try:
-        connection.execute(
-            "DELETE FROM prediction_history WHERE user_id = ?",
-            (user_id,),
-        )
-        connection.commit()
-
-        return {
-            "success": True,
-            "message": "Prediction history cleared.",
-        }
-
-    finally:
-        connection.close()
-
+# ============================================================
+# Get Prediction History
+# ============================================================
 
 @app.get("/history")
 def get_history(
@@ -965,6 +740,10 @@ def get_history(
 ):
     from src.auth.database import get_connection
 
+    # --------------------------------------------------------
+    # Check Authorization
+    # --------------------------------------------------------
+
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(
             status_code=401,
@@ -972,6 +751,7 @@ def get_history(
         )
 
     token = authorization[7:].strip()
+
     payload = decode_token(token)
 
     if payload is None:
@@ -987,6 +767,10 @@ def get_history(
             status_code=401,
             detail="Invalid token payload.",
         )
+
+    # --------------------------------------------------------
+    # Get User History
+    # --------------------------------------------------------
 
     connection = get_connection()
 
@@ -995,6 +779,7 @@ def get_history(
             """
             SELECT
                 id,
+                user_id,
                 drug_id,
                 microbe_id,
                 drug_name,
@@ -1008,10 +793,25 @@ def get_history(
             (user_id,),
         ).fetchall()
 
+        history = []
+
+        for row in rows:
+            history.append({
+                "id": row["id"],
+                "user_id": row["user_id"],
+                "drug_id": row["drug_id"],
+                "microbe_id": row["microbe_id"],
+                "drug_name": row["drug_name"],
+                "microbe_name": row["microbe_name"],
+                "prediction": row["prediction"],
+                "created_at": row["created_at"],
+            })
+
         return {
             "success": True,
             "user_id": user_id,
-            "history": [dict(row) for row in rows],
+            "total": len(history),
+            "history": history,
         }
 
     finally:
@@ -1019,47 +819,74 @@ def get_history(
 
 
 # ============================================================
-# Password Reset
+# Clear Prediction History
 # ============================================================
 
-class PasswordResetRequest(BaseModel):
-    username: str
-    recovery_code: str
-    new_password: str
+@app.delete("/history")
+def clear_history(
+    authorization: str | None = Header(default=None),
+):
+    from src.auth.database import get_connection
 
+    # --------------------------------------------------------
+    # Check Authorization
+    # --------------------------------------------------------
 
-@app.post("/auth/password/reset")
-def password_reset(request: PasswordResetRequest):
-
-    valid = verify_recovery_code(
-        username=request.username,
-        recovery_code=request.recovery_code,
-    )
-
-    if not valid:
+    if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(
             status_code=401,
-            detail="Invalid username or recovery code.",
+            detail="Authorization token required.",
         )
 
-    if len(request.new_password) < 6:
+    token = authorization[7:].strip()
+
+    payload = decode_token(token)
+
+    if payload is None:
         raise HTTPException(
-            status_code=400,
-            detail="Password must contain at least 6 characters.",
+            status_code=401,
+            detail="Invalid or expired token.",
         )
 
-    success = reset_password(
-        username=request.username,
-        new_password=request.new_password,
-    )
+    user_id = payload.get("user_id")
 
-    if not success:
+    if not isinstance(user_id, int):
         raise HTTPException(
-            status_code=404,
-            detail="User not found.",
+            status_code=401,
+            detail="Invalid token payload.",
         )
 
-    return {
-        "success": True,
-        "message": "Password reset successfully.",
-    }
+    # --------------------------------------------------------
+    # Delete Only This User's History
+    # --------------------------------------------------------
+
+    connection = get_connection()
+
+    try:
+        cursor = connection.execute(
+            """
+            DELETE FROM prediction_history
+            WHERE user_id = ?
+            """,
+            (user_id,),
+        )
+
+        connection.commit()
+
+        return {
+            "success": True,
+            "message": "Prediction history cleared.",
+            "deleted_records": cursor.rowcount,
+            "user_id": user_id,
+        }
+
+    except Exception as error:
+        connection.rollback()
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(error),
+        )
+
+    finally:
+        connection.close()
