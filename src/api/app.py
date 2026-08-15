@@ -231,12 +231,20 @@ def get_microbes():
 @app.post("/predict")
 def predict(request: PredictionRequest):
 
+    print('========== PREDICT REQUEST START ==========', flush=True)
+    print(f'drug_id={request.drug_id}, microbe_id={request.microbe_id}', flush=True)
+
     try:
+
+        print('Calling predict_interaction...', flush=True)
 
         result = predict_interaction(
             request.drug_id,
             request.microbe_id,
         )
+
+        print('predict_interaction completed successfully', flush=True)
+        print(f'Result type: {type(result).__name__}', flush=True)
 
         return result
 
