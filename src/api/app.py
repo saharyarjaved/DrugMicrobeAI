@@ -249,9 +249,14 @@ def predict(request: PredictionRequest):
 
     except Exception as error:
 
+        import traceback
+        print('========== PREDICT ERROR ==========', flush=True)
+        traceback.print_exc()
+        print('===================================', flush=True)
+
         raise HTTPException(
             status_code=500,
-            detail=str(error),
+            detail=f'{type(error).__name__}: {error}',
         )
 
 
