@@ -50,3 +50,5 @@ saved_models/*
 # Raw/local environment data
 data/raw/.venv/
 DrugMicrobeAI/
+
+!saved_models/hagat_embeddings.pth
