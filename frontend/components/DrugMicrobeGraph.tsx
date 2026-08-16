@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://drugmicrobeai.onrender.com";
 
 type GraphNode = {
   id: string;
@@ -856,3 +856,4 @@ const selectedInteractionCount = useMemo(() => {
     </section>
   );
 }
+
