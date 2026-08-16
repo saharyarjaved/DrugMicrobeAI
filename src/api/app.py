@@ -246,7 +246,89 @@ def predict(request: PredictionRequest):
         print('predict_interaction completed successfully', flush=True)
         print(f'Result type: {type(result).__name__}', flush=True)
 
-        return result
+        # ====================================================
+        # Resolve Drug / Microbe Names
+        # ====================================================
+
+        drug_rows = df[
+            df["Drug_ID"] == request.drug_id
+        ][["Drug_ID", "Drug"]].dropna().drop_duplicates()
+
+        microbe_rows = df[
+            df["Microbe_ID"] == request.microbe_id
+        ][["Microbe_ID", "Microbe"]].dropna().drop_duplicates()
+
+        if drug_rows.empty:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Drug ID not found: {request.drug_id}",
+            )
+
+        if microbe_rows.empty:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Microbe ID not found: {request.microbe_id}",
+            )
+
+        drug_name = str(
+            drug_rows.iloc[0]["Drug"]
+        )
+
+        microbe_name = str(
+            microbe_rows.iloc[0]["Microbe"]
+        )
+
+        probability = float(
+            result["probability"]
+        )
+
+        # ====================================================
+        # Upgraded API Response
+        # ====================================================
+
+        response = {
+            "drug": {
+                "id": int(request.drug_id),
+                "name": drug_name,
+            },
+            "microbe": {
+                "id": int(request.microbe_id),
+                "name": microbe_name,
+            },
+            "probability": round(
+                probability,
+                6
+            ),
+            "probability_percent": round(
+                probability * 100,
+                2
+            ),
+            "prediction": result["prediction"],
+        }
+
+        print(
+            f"Drug: {drug_name} "
+            f"(ID={request.drug_id})",
+            flush=True
+        )
+
+        print(
+            f"Microbe: {microbe_name} "
+            f"(ID={request.microbe_id})",
+            flush=True
+        )
+
+        print(
+            f"Probability: {probability:.6f}",
+            flush=True
+        )
+
+        print(
+            f"Prediction: {result['prediction']}",
+            flush=True
+        )
+
+        return response
 
     except ValueError as error:
 
