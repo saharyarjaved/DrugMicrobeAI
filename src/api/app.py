@@ -58,6 +58,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://drug-microbe-ai.vercel.app",
         "https://drug-microbe-ai-saharyar-javeds-projects.vercel.app",
     ],
     allow_credentials=True,
@@ -995,5 +996,4 @@ def clear_history(
 
     finally:
         connection.close()
-
 
