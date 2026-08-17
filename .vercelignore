@@ -1,0 +1,17 @@
+.venv/
+.venv312/
+.venv_py314/
+server/.venv/
+frontend/node_modules/
+frontend/.next/
+saved_models/
+data/raw/
+data/processed/
+__pycache__/
+*.pyc
+*.pth
+*.pt
+*.bin
+*.dll
+*.lib
+.git/

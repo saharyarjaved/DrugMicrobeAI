@@ -52,3 +52,5 @@ data/raw/.venv/
 DrugMicrobeAI/
 
 !saved_models/hagat_embeddings.pth
+.vercel
+.env*
