@@ -1,7 +1,8 @@
+server/
+server/.venv/
 .venv/
 .venv312/
 .venv_py314/
-server/.venv/
 frontend/node_modules/
 frontend/.next/
 saved_models/
