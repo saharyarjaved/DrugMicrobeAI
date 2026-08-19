@@ -1,51 +1,32 @@
 {
-
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "services": {
-
     "frontend": {
-
       "root": "frontend/",
-
       "framework": "nextjs"
-
     },
-
     "backend": {
-
       "root": "server/",
-
       "entrypoint": "main:app"
-
     }
-
   },
-
   "rewrites": [
-
     {
-
       "source": "/svc/api/:path*",
-
       "destination": {
-
         "service": "backend"
-
       }
-
     },
-
     {
-
       "source": "/(.*)",
-
       "destination": {
-
         "service": "frontend"
-
       }
-
     }
-
-  ]
-
+  ],
+  "functions": {
+    "server/**/*.py": {
+      "excludeFiles": "{**/.venv/**,**/__pycache__/**,**/tests/**,**/data/**,**/models/**,**/checkpoints/**,**/*.pt,**/*.pth,**/*.ckpt,**/*.bin,**/*.safetensors,**/*.h5,**/*.onnx,**/*.pkl,**/*.npy,**/*.ipynb}"
+    }
+  }
 }
