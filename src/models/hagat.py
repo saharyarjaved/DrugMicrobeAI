@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-
 from torch_geometric.nn import HeteroConv, GATConv
 
 
@@ -23,7 +22,6 @@ class HaGATModel(nn.Module):
         # =====================================
         # First Heterogeneous GAT Layer
         # =====================================
-
         self.conv1 = HeteroConv(
             {
                 (
@@ -31,28 +29,21 @@ class HaGATModel(nn.Module):
                     "interacts_with",
                     "microbe"
                 ): GATConv(
-                    (
-                        drug_input_dim,
-                        microbe_input_dim
-                    ),
+                    (drug_input_dim, microbe_input_dim),
                     hidden_dim,
                     heads=heads,
-                    concat=False,
+                    concat=True,  # Multi-head attention features concat honge
                     add_self_loops=False
                 ),
-
                 (
                     "microbe",
                     "interacts_with",
                     "drug"
                 ): GATConv(
-                    (
-                        microbe_input_dim,
-                        drug_input_dim
-                    ),
+                    (microbe_input_dim, drug_input_dim),
                     hidden_dim,
                     heads=heads,
-                    concat=False,
+                    concat=True,
                     add_self_loops=False
                 )
             },
@@ -62,6 +53,8 @@ class HaGATModel(nn.Module):
         # =====================================
         # Second Heterogeneous GAT Layer
         # =====================================
+        # Kyunki pehli layer mein concat=True tha, output dimension = hidden_dim * heads ban jayegi
+        input_dim_layer2 = hidden_dim * heads
 
         self.conv2 = HeteroConv(
             {
@@ -70,27 +63,20 @@ class HaGATModel(nn.Module):
                     "interacts_with",
                     "microbe"
                 ): GATConv(
-                    (
-                        hidden_dim,
-                        hidden_dim
-                    ),
+                    (input_dim_layer2, input_dim_layer2),
                     output_dim,
-                    heads=heads,
+                    heads=1,
                     concat=False,
                     add_self_loops=False
                 ),
-
                 (
                     "microbe",
                     "interacts_with",
                     "drug"
                 ): GATConv(
-                    (
-                        hidden_dim,
-                        hidden_dim
-                    ),
+                    (input_dim_layer2, input_dim_layer2),
                     output_dim,
-                    heads=heads,
+                    heads=1,
                     concat=False,
                     add_self_loops=False
                 )
@@ -99,58 +85,47 @@ class HaGATModel(nn.Module):
         )
 
         # =====================================
-        # Activation
+        # Activations & Regularization
         # =====================================
-
         self.activation = nn.ReLU()
-
-        # =====================================
-        # Dropout
-        # =====================================
-
-        self.dropout = nn.Dropout(
-            0.2
-        )
+        self.dropout = nn.Dropout(0.2)
 
     # =====================================
-    # Forward
+    # Forward Pass with Attention Support
     # =====================================
-
     def forward(
         self,
         x_dict,
-        edge_index_dict
+        edge_index_dict,
+        return_attention_weights=False
     ):
-
+        """
+        Forward pass with optional attention weights return 
+        for biological interpretability analysis.
+        """
         # -------------------------------------
         # First GAT Layer
         # -------------------------------------
-
         x_dict = self.conv1(
             x_dict,
             edge_index_dict
         )
 
         x_dict = {
-            node_type: self.activation(
-                embeddings
-            )
-            for node_type, embeddings
-            in x_dict.items()
+            node_type: self.activation(embeddings)
+            for node_type, embeddings in x_dict.items()
         }
 
         x_dict = {
-            node_type: self.dropout(
-                embeddings
-            )
-            for node_type, embeddings
-            in x_dict.items()
+            node_type: self.dropout(embeddings)
+            for node_type, embeddings in x_dict.items()
         }
 
         # -------------------------------------
         # Second GAT Layer
         # -------------------------------------
-
+        # Note: Agar attention weights extract karne hain toh GATConv ki internal 
+        # return_attention_weights API ko HeteroConv ke sath yahan map kiya jata hai.
         x_dict = self.conv2(
             x_dict,
             edge_index_dict

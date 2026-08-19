@@ -5,7 +5,8 @@ from sklearn.metrics import (
     precision_score,
     recall_score,
     f1_score,
-    roc_auc_score
+    roc_auc_score,
+    average_precision_score  # <-- AUPRC metric for imbalanced bioinformatics data
 )
 
 
@@ -59,16 +60,15 @@ def evaluate(
     y_score = probabilities.cpu().numpy()
 
     # -------------------------
-    # Metrics
+    # Metrics (Includes AUPRC)
     # -------------------------
     metrics = {
         "Accuracy": accuracy_score(y_true, y_pred),
         "Precision": precision_score(y_true, y_pred),
         "Recall": recall_score(y_true, y_pred),
         "F1": f1_score(y_true, y_pred),
-        "ROC-AUC": roc_auc_score(y_true, y_score)
+        "ROC-AUC": roc_auc_score(y_true, y_score),
+        "AUPRC": average_precision_score(y_true, y_score)
     }
 
-    # IMPORTANT:
-    # Return ONLY 4 values
     return metrics, y_true, y_pred, y_score

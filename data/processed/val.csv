@@ -1,0 +1,743 @@
+﻿drug_id,drug_name,microbe_id,microbe_name,label
+282,3-Fluoro-DL-phenylalanine,137,Staphylococcus aureus,1
+615,Curcumin,30,Burkholderia multivorans,1
+1158,S-(4-tolyl)-L-cysteine,159,Streptococcus sanguis,1
+1235,Taurine,81,Hepatitis B virus F,0
+1038,Oleic Acid,70,Firmicutes,0
+978,N-Decanoyl cyclopentylamide,62,Enterobacter ludwigi,0
+165,16P-AC,137,Staphylococcus aureus,1
+706,Ertapenem,161,Streptomyces gordonii,0
+846,KABT-AMP,74,Geobacillus kaustophilus,0
+202,"2-(4-Bromophenyl)-N-((2R,3R,4S,5S,6R)-2,4,5-trihydroxy-6-(hydroxymethyl)tetrahydro-2H-pyran-3-yl)acetamide",108,Mycobacterium smegmatis,0
+545,Cefepime,164,Thermus thermophilus,0
+1136,Raspberry KAS 434,125,Pseudomonas libaniensis,1
+692,Elemental silver,55,Edwardsiella tarda,0
+846,KABT-AMP,116,Propionibacterium acnes,0
+456,Azithromycin,121,Pseudomonas aeruginosa,1
+1284,Undecanoic acid,67,Escherichia coli,1
+186,2-(2-(2-Chloroacetamido)-5-fluorophenyl)-2-oxo-N-( prop-2-yn-1-yl)acetamide,67,Escherichia coli,1
+540,Cefalotin,67,Escherichia coli,1
+233,2-amino-6-chlorobenzoic acid,30,Burkholderia multivorans,1
+46,(2R)-2-amino-3-[(4-methylphenyl)methanesulfinyl]propanoic acid,7,Actinomyces oris,1
+1141,Rhodomyrtone,17,Bacillus amyloliquefaciens,0
+1171,Salicylic Acid,64,Enterococcus faecalis,1
+852,Kanamycin,67,Escherichia coli,1
+463,Bac8C,16,Aspergillus niger,0
+972,N-(4-Pyridinyl)butanamide,35,Candida dubliniensis,0
+681,Dirithromycin,43,Citrobacter freundii,0
+684,Djenkolic acid,151,Streptococcus mutans,1
+1006,Neohesperidin,174,Yersinia enterocolitica,1
+68,(2Z)-N-hexyl-2-hydroxy-3-[4-(trifluoromethyl)phenyl]prop-2-enamide,118,Proteus vulgaris,0
+1046,Oxiconazole nitrate,115,Porphyromonas gingivalis,0
+166,17-Deacetyl norgestimate,137,Staphylococcus aureus,1
+615,Curcumin,127,Raoultella ornithinolytica,1
+1018,Nodakenetin,147,Stenotrophomonas maltophilia,1
+184,2-(2-(2-Azidoacetamido)-5-nitrophenyl)-2-oxo-N-(prop-2-yn-1-yl)acetamide,73,Gardnerella vaginalis,0
+168,"2,2 -Dipyridyl",137,Staphylococcus aureus,1
+145,1-{6-nitro-4-phenyl-2-[(E)-2-[4-(trifluoromethoxy)phenyl]ethenyl]quinolin-3-yl}ethan-1-one,121,Pseudomonas aeruginosa,1
+1360,n-Methyl-D-valine,143,Staphylococcus epidermis,1
+564,Cefuroxime,100,Listeria monocytogenes,1
+1241,Telithromycin,142,Staphylococcus epidermidis,0
+37,"(2E)-N -(2 -hydroxy-5 -bromo-benzilidene)-3,4,5-trimethoxybenzohydrazide",64,Enterococcus faecalis,1
+586,Cinnamon oil,141,Staphylococcus cohnii,0
+1271,"Triethyl[2-({10,15,20,24,26,29,31,33,34-nonakis[3-(triethylphosphaniumyl)propoxy]hexacyclo[21.2.2.2,.2,.2,.2]pentatriaconta-1(25),3(35),4,6(34),8,10,13,15,18,20,23,26,28,30,32-pentadecaen-4-yl}oxy)ethyl]phosphanium decabromide",64,Enterococcus faecalis,1
+360,4-tertiary butyl benzyl decyl beta-maltoside,157,Streptococcus salivarius,0
+432,Aminocyclopropane,132,Serratia marcescens,0
+710,Esculetin,121,Pseudomonas aeruginosa,1
+1223,Sulfanilamide,13,Aquifex aeolicus,0
+734,Flavonoids 7,15,Aspergillus fumigatus,0
+18,"(2E)-1-(1,3-benzodioxol-5-yl)-3-[5-(2-nitro-phenyl)-furan-2-yl]-2-propen-1-one",64,Enterococcus faecalis,1
+1185,Silver nanoparticles,67,Escherichia coli,1
+145,1-{6-nitro-4-phenyl-2-[(E)-2-[4-(trifluoromethoxy)phenyl]ethenyl]quinolin-3-yl}ethan-1-one,104,Micrococcus luteus,1
+279,3-Carbamoylphenylalanine,137,Staphylococcus aureus,1
+457,Azlocillin,148,Streptococcus epidermidis,0
+425,Alexidine dihydrochloride,158,Streptococcus sanguinis,0
+208,"2-(5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazole-2-yl)phenol",137,Staphylococcus aureus,1
+1068,Penicillenol B2,34,Candida albicans,1
+141,1-{2-[(E)-2-(4-methoxyphenyl)ethenyl]-4-phenylquinolin-3-yl}ethan-1-one,21,Bacillus subtilis,1
+66,"(2S,3R,4S,5S,6R)-6-(Acetoxymethyl)-3-dodecanamidotetrahydro-2H-pyran-2,4,5-triyl triacetate",49,Corynebacterium ammoniagenes,0
+703,Epicatechin-3-gallate,27,Baker's yeast,0
+599,Clomocycline,144,Staphylococcus equorum,0
+1280,Tyrosol,93,Influenza B virus,0
+523,Carabrone,115,Porphyromonas gingivalis,0
+323,4-Chloro-2-fluoro-DL-phenylalanine,143,Staphylococcus epidermis,1
+124,1-(4-chlorophenyl)-3-m-tolyurea,130,Schistosoma,0
+500,Butoconazole,115,Porphyromonas gingivalis,0
+745,Fraxin,121,Pseudomonas aeruginosa,1
+1366,para-Benzoquinone,154,Streptococcus pneumoniae,0
+440,Aniline,141,Staphylococcus cohnii,0
+439,Anidulafungin,169,Vibrio campbellii,0
+576,Chlorpromazine,168,Vibrio anguillarum,0
+693,Ellagic Acid,67,Escherichia coli,1
+502,Butyl gallate,121,Pseudomonas aeruginosa,1
+1209,Subtilosin,67,Escherichia coli,1
+154,"13-(2-chloro-7-methylquinolin-3-yl)-3,3-dimethyl-1H,2H,3H,4H,6H,11H,13H-indazolo[1,2-b]phthalazine-1,6,11-trione",34,Candida albicans,1
+666,Dibenzyl disulphide,121,Pseudomonas aeruginosa,1
+1292,Vancomycin,142,Staphylococcus epidermidis,1
+512,CSP,149,Streptococcus gordonii,1
+145,1-{6-nitro-4-phenyl-2-[(E)-2-[4-(trifluoromethoxy)phenyl]ethenyl]quinolin-3-yl}ethan-1-one,67,Escherichia coli,1
+1018,Nodakenetin,21,Bacillus subtilis,0
+914,Magainin-II,121,Pseudomonas aeruginosa,1
+135,"1-[2-(naphthalen-1-yl)-5-(3,4,5-trimethoxyphenyl)-1,3,4-oxadiazol-3(2H)-yl]ethanone",64,Enterococcus faecalis,1
+406,7-hydroxyindole,160,Streptococcus sobrinus,0
+1154,Rutin,171,Vibrio harveyi,1
+705,Epigallocatechin Gallate,157,Streptococcus salivarius,0
+270,3-(3-fluorophenyl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,64,Enterococcus faecalis,1
+327,4-Ethylguaiacol,66,Enterococcus gallinarum,0
+593,Clary sage,67,Escherichia coli,1
+27,(2E)-1-(3 -methoxyphenyl)-3-(2-naphthyl)-2-propen-1-one,64,Enterococcus faecalis,1
+545,Cefepime,67,Escherichia coli,1
+451,Auranofin,160,Streptococcus sobrinus,0
+955,N -(pyridin-3-yl-methylene)benzohydrazide,151,Streptococcus mutans,1
+641,D/L-Aspartate,144,Staphylococcus equorum,0
+774,Gentamicin,58,Enteric bacteria and other eubacteria,1
+637,D-Tyrosine,143,Staphylococcus epidermis,1
+1158,S-(4-tolyl)-L-cysteine,151,Streptococcus mutans,1
+193,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(4-methoxyphenyl)-1,3,4-oxadiazole",121,Pseudomonas aeruginosa,1
+1124,Quinupristin,98,Lactobacillus fermenti,0
+7,"(1R,2S,7R,8R)-2,18-diacetoxyasperdiol",171,Vibrio harveyi,1
+1207,Streptomycin,137,Staphylococcus aureus,1
+1320,[(ethanesulfinyl)sulfanyl]ethane,59,Enterobacter aerogenes,0
+30,(2E)-1-[4 -(1H-imidazol-1-yl)phenyl]-3-(2-naphthyl)-2-propen-1-one,142,Staphylococcus epidermidis,1
+637,D-Tyrosine,130,Schistosoma,0
+554,Cefotiam,172,Vibrio parahaemolyticus,0
+251,"3,4-Dichloro-5-[(1,3-dichloropropan-2-yloxy)]-2(5H)-furanone",97,Kocuria rhizophila,0
+469,Baicalin,4,Acinetobacter oleiovorans,0
+836,Isoniazid,48,Coagulase- negative staphylococci,0
+615,Curcumin,171,Vibrio harveyi,1
+115,"1,3-bis[3-chloro-5-(1,3-dichloropropane-2-yloxy)-2(5H)-furanone-4-ylsulfonyl]propane",138,Staphylococcus capitis,0
+680,Diphenyl methane,110,Neisseria gonorrhoeae,0
+1035,Octyl gallate,64,Enterococcus faecalis,1
+534,Cecropin (1-7)-melittin A (2-9) amide,12,Amycolatopsis orientalis,0
+322,4-Bromo-D-phenylalanine,75,Haemophilus influenzae,0
+1208,Streptorubin B,46,Clostridium pasteurianum,0
+191,"2-(2-chloro-5-fluorophenyl)-5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazole",137,Staphylococcus aureus,1
+169,"2,3,4,5,6-Pentafluoro-L-phenylalanine",137,Staphylococcus aureus,1
+654,Decanediol,101,Listeria monocytogenes serotype 4a,0
+510,CGP-37157,143,Staphylococcus epidermis,0
+211,2-(Aminomethyl)-L-phenylalanine,60,Enterobacter cancerogenus,0
+798,Hinokitiol,36,Candida glabrata,1
+31,(2E)-1-[4 -(1H-imidazol-1-yl)phenyl]-3-(3-methoxy-4-benzyloxi-phenyl)-2-propen-1-one,64,Enterococcus faecalis,1
+212,2-(Trifluoromethyl)-D-phenylalanine,161,Streptomyces gordonii,0
+893,Limonene,113,Pichia anomala,1
+1116,Pyrogallol,170,Vibrio cholerae,1
+286,3-Methoxy-D-Phenylalanine,51,Cryptococcus neoformans,0
+827,Indolicidin,121,Pseudomonas aeruginosa,1
+1204,Stavudine,4,Acinetobacter oleiovorans,0
+921,Meropenem,67,Escherichia coli,1
+141,1-{2-[(E)-2-(4-methoxyphenyl)ethenyl]-4-phenylquinolin-3-yl}ethan-1-one,67,Escherichia coli,1
+867,L-carnosine,151,Streptococcus mutans,1
+1156,S-(2-thiazoyl)-L-cysteine,31,Burkholderia pseudomallei,0
+1132,RNAIII-inhibiting Peptide,137,Staphylococcus aureus,1
+863,L-Phenylalanine,157,Streptococcus salivarius,0
+343,4-bromo-5-(bromomethylene)-3-(1-acetoxybutyl)-2(5H)-furanone,137,Staphylococcus aureus,0
+671,Dicloxacillin,154,Streptococcus pneumoniae,1
+307,"3-{2-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]ethyl}-N-(2-fluorophenyl)-5-methylidene-2,5-dihydrofuran-2-amine",78,Halomonas pacifica,0
+144,"1-{6-nitro-4-phenyl-2-[(E)-2-(3,4,5-trimethoxyphenyl)ethenyl]quinolin-3-yl}ethan-1-one",67,Escherichia coli,1
+945,Myristic acid,170,Vibrio cholerae,1
+764,Gallic Acid,57,Eikenella corrodens,1
+1073,Pentagalloylglucose,137,Staphylococcus aureus,1
+327,4-Ethylguaiacol,43,Citrobacter freundii,0
+435,Amoxicillin,66,Enterococcus gallinarum,0
+821,Indole,168,Vibrio anguillarum,1
+195,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(methylthio)-1,3,4-oxadiazole",137,Staphylococcus aureus,1
+1187,Silver nitrate,67,Escherichia coli,1
+588,Ciprofloxacin,163,Streptomyces sp.,0
+148,11(R)-hydroxy-12(20)-en-knightol acetate,137,Staphylococcus aureus,1
+721,Eugenol,67,Escherichia coli,1
+318,4-Amino-D-phenylalanine,143,Staphylococcus epidermis,1
+132,"1-[2-(2-nitrophenyl)-5-phenyl-1,3,4-oxadiazol-3(2H)-yl]ethanone",142,Staphylococcus epidermidis,1
+151,"13-(2-chloro-6-methoxyquinolin-3-yl)-3,3-dimethyl-1H,2H,3H,4H,4aH,6H,11H,13H,13aH-indazolo[1,2-b]phthalazine-1,6,11-trione",34,Candida albicans,1
+634,D-Phenylalanine,163,Streptomyces sp.,0
+1013,Nisin,142,Staphylococcus epidermidis,1
+1201,Sorbitol,67,Escherichia coli,1
+554,Cefotiam,100,Listeria monocytogenes,1
+335,4-Methoxycarbonylphenylboronic acid,168,Vibrio anguillarum,1
+708,Erythromycin,67,Escherichia coli,1
+29,(2E)-1-(5-clorotiophen-2-yl)-3-(3-methoxy-4-benzyloxi-phenyl)-2-propen-1-one,137,Staphylococcus aureus,1
+763,GW-9662,97,Kocuria rhizophila,0
+394,6-MO-LF11-215,0,Achromobacter sp.,0
+400,7-bromoindole,39,Candida parapsilosis,0
+335,4-Methoxycarbonylphenylboronic acid,170,Vibrio cholerae,1
+357,4-methoxy-cinnamaldehyde,79,Helicobacter pylori,0
+15,(2-{[(2-phenylethyl)sulfanyl]sulfinyl}ethyl)benzene,7,Actinomyces oris,1
+1139,Resveratrol,137,Staphylococcus aureus,1
+155,"13-(2-chloro-8a-methyl-4a,8a-dihydroquinolin-3-yl)-3,3-dimethyl-1H,2H,3H,4H,6H,11H,13H-indazolo[1,2-b]phthalazine-1,6,11-trione",121,Pseudomonas aeruginosa,1
+1066,Penicillenol A2,148,Streptococcus epidermidis,0
+520,Camphene,103,Marinobacter hydrocarbonoclasticus,0
+447,Asperdiol acetate,121,Pseudomonas aeruginosa,1
+1118,Quercetin,67,Escherichia coli,1
+1040,Olmesartran,120,Pseudoalteromonas sp.,0
+322,4-Bromo-D-phenylalanine,137,Staphylococcus aureus,1
+1099,Polyethyleneimine,137,Staphylococcus aureus,1
+458,Aztreonam,36,Candida glabrata,0
+472,Benzathine Benzylpenicillin,75,Haemophilus influenzae,0
+117,"1,3-dimethyl-6-(4-methylphenyl)-5-[3-(4-methylphenyl)-1-phenyl-1H-pyrazol-4-yl]-1H,2H,3H,4H,5H,6H-pyrimido[4,5-d][1,3]diazine-2,4-dione",21,Bacillus subtilis,1
+268,3-(2-Thienyl)alanine,137,Staphylococcus aureus,1
+1005,Neoeriocitrin,67,Escherichia coli,1
+141,1-{2-[(E)-2-(4-methoxyphenyl)ethenyl]-4-phenylquinolin-3-yl}ethan-1-one,121,Pseudomonas aeruginosa,1
+1259,Tigecycline,151,Streptococcus mutans,0
+260,"3,5-dimethylaniline",79,Helicobacter pylori,0
+1240,Telekin,134,Shigella flexneri,0
+676,"Dihydroxybenzoic Acid (3,4-DHBA)",6,Actinobacillus actinomycetemcomitans,0
+354,4-fluoroindole,68,Escherichia coli O6:H1 (strain CFT073 / ATCC 700928 / UPEC),0
+27,(2E)-1-(3 -methoxyphenyl)-3-(2-naphthyl)-2-propen-1-one,137,Staphylococcus aureus,1
+906,M8-33,41,Candida tropicalis,0
+679,Diphenyl disulphide,7,Actinomyces oris,1
+1032,OSIP108,34,Candida albicans,1
+294,3-chloro-5-hydroxy-4-[(4-methylphenylsulfonyl)]-2(5H)-furanone,145,Staphylococcus haemolyticus,0
+1152,Rufloxacin,96,Klebsiella variicola,0
+270,3-(3-fluorophenyl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,65,Enterococcus faecium,1
+187,2-(2-(2-Chloroacetamido)-5-methylphenyl)-2-oxo-N-( prop-2-yn- 1-yl)acetamide,67,Escherichia coli,1
+138,1-methyl-4-({[(4-methylphenyl)methyl]disulfanyl}methyl)benzene,151,Streptococcus mutans,1
+1362,nitrazepam,101,Listeria monocytogenes serotype 4a,0
+322,4-Bromo-D-phenylalanine,166,Trueperella pyogenes,0
+1188,Silver sulfadiazine,160,Streptococcus sobrinus,0
+662,Di-MB-LF11-215,100,Listeria monocytogenes,0
+1200,Sodium sulfate,27,Baker's yeast,0
+225,2-amino-3-(2-nitrophenyl)propanoic acid,71,Francisella novicida,0
+359,4-nitropyridine N -oxide,28,Burkholderia cenocepacia,1
+950,Myxinidin2,137,Staphylococcus aureus,1
+215,2-Carbamoylphenylalanine,2,Acinetobacter baumannii,0
+22,"(2E)-1-(2 ,5 -dimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",142,Staphylococcus epidermidis,1
+144,"1-{6-nitro-4-phenyl-2-[(E)-2-(3,4,5-trimethoxyphenyl)ethenyl]quinolin-3-yl}ethan-1-one",115,Porphyromonas gingivalis,0
+388,6-Amino Penicillinic acid,151,Streptococcus mutans,1
+1035,Octyl gallate,121,Pseudomonas aeruginosa,1
+1132,RNAIII-inhibiting Peptide,149,Streptococcus gordonii,0
+189,2-(2-(2-Chloroacetamido)phenyl )-2-oxo-N-( prop-2-yn-1-yl )acetamide,67,Escherichia coli,1
+144,"1-{6-nitro-4-phenyl-2-[(E)-2-(3,4,5-trimethoxyphenyl)ethenyl]quinolin-3-yl}ethan-1-one",94,Klebsiella planticola,1
+705,Epigallocatechin Gallate,96,Klebsiella variicola,1
+1138,Resorcinol,20,Bacillus licheniformis,0
+29,(2E)-1-(5-clorotiophen-2-yl)-3-(3-methoxy-4-benzyloxi-phenyl)-2-propen-1-one,151,Streptococcus mutans,1
+808,IDR-1018,28,Burkholderia cenocepacia,1
+433,Aminosalicylic Acid,94,Klebsiella planticola,0
+1064,Penciclovir,146,Staphylococcus saprophyticus,0
+66,"(2S,3R,4S,5S,6R)-6-(Acetoxymethyl)-3-dodecanamidotetrahydro-2H-pyran-2,4,5-triyl triacetate",146,Staphylococcus saprophyticus,0
+573,Chlorhexidine,34,Candida albicans,1
+837,Isopropanol,32,Burkholderia thailandensis,0
+889,Lemon,67,Escherichia coli,1
+310,"4 alpha, 5 alpha-epoxy-10 alpha, 14H-1-epi-inuviscolide",111,Obesumbacterium proteus,0
+1284,Undecanoic acid,95,Klebsiella pneumoniae,1
+677,Dimethyl Sulfoxide,137,Staphylococcus aureus,0
+1124,Quinupristin,134,Shigella flexneri,1
+667,Dibenzyl sulphide,47,Clostridium perfringens,0
+667,Dibenzyl sulphide,7,Actinomyces oris,1
+829,Irinotecan,63,Enterobacteria phage T4,0
+1194,Sinensetin,162,Streptomyces rubiginosus,0
+555,Cefoxitin,100,Listeria monocytogenes,1
+1139,Resveratrol,156,Streptococcus pyogenes,0
+198,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-phenyl-1,3,4-oxadiazole",16,Aspergillus niger,0
+52,"(2S)-2-amino-3-(1,3-thiazol-4-yl)propanoic acid",106,Mycobacterium avium,0
+630,D-Histidine,43,Citrobacter freundii,0
+913,Magainin-I,137,Staphylococcus aureus,1
+335,4-Methoxycarbonylphenylboronic acid,173,Vibrio vulnificus,1
+788,Hamamelitannin,139,Staphylococcus caprae,1
+241,"2-geranyloxy-4,6-dihydroxybenzophenone",13,Aquifex aeolicus,0
+842,Itraconazole,28,Burkholderia cenocepacia,0
+531,Catechin,30,Burkholderia multivorans,1
+1139,Resveratrol,121,Pseudomonas aeruginosa,1
+214,"2-Benzyl-5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazole",14,Arthrobacter sp.,0
+196,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(phenylthio)-1,3,4-oxadiazole",3,Acinetobacter nosocomialis,0
+1168,SP1,137,Staphylococcus aureus,1
+763,GW-9662,51,Cryptococcus neoformans,0
+187,2-(2-(2-Chloroacetamido)-5-methylphenyl)-2-oxo-N-( prop-2-yn- 1-yl)acetamide,163,Streptomyces sp.,0
+657,Delphinidin,29,Burkholderia cepacia,0
+911,MUC7 20-mer,161,Streptomyces gordonii,0
+242,2-methoxy-cinnamaldehyde,168,Vibrio anguillarum,1
+272,3-(4-fluorophenyl)-5-(3-(allyloxy)-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,64,Enterococcus faecalis,1
+1290,VS2,128,Salmonella Typhi,0
+276,3-(pyridin-3-yl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,60,Enterobacter cancerogenus,0
+681,Dirithromycin,88,Human immunodeficiency virus,0
+1044,Oxacillin,47,Clostridium perfringens,1
+198,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-phenyl-1,3,4-oxadiazole",121,Pseudomonas aeruginosa,1
+16,"(2E)-1-(1 ,3 -benzodioxol-5-yl)-3-(2-naphthyl)-2-propen-1-one",151,Streptococcus mutans,1
+195,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(methylthio)-1,3,4-oxadiazole",121,Pseudomonas aeruginosa,1
+138,1-methyl-4-({[(4-methylphenyl)methyl]disulfanyl}methyl)benzene,162,Streptomyces rubiginosus,0
+1356,lin-SB056-1,121,Pseudomonas aeruginosa,1
+533,Cathelicidin,147,Stenotrophomonas maltophilia,0
+331,4-Hydroxy benzoate,40,Candida spp.,0
+966,N-(2-Pyrimidinyl)butanamide,109,Mycobacterium tuberculosis,0
+407,7-methoxyindole,93,Influenza B virus,0
+19,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-chloro-6-methoxy-quinolin-3-yl)-2-propen-1-one",121,Pseudomonas aeruginosa,1
+131,"1-[2-(2,4-dichlorophenyl)-5-(3,4,5-trimethoxyphenyl)-1,3,4-oxadiazol-3(2H)-yl]ethanone",137,Staphylococcus aureus,1
+120,"1-(2-Chloroacetyl)-5-methylindoline-2,3-dione",121,Pseudomonas aeruginosa,1
+546,Cefixime,75,Haemophilus influenzae,1
+1335,cat-AGE-RK1,171,Vibrio harveyi,0
+1207,Streptomycin,67,Escherichia coli,1
+559,Ceftazidime,118,Proteus vulgaris,1
+936,Minocycline,123,Pseudomonas fluorescens,0
+561,Ceftizoxime,121,Pseudomonas aeruginosa,0
+559,Ceftazidime,67,Escherichia coli,1
+868,L-cysteic acid,52,Dengue Virus Type 2,0
+974,"N-(5-Methyl-1,2-oxazol-3-yl)butanamide",0,Achromobacter sp.,0
+882,LL-37,34,Candida albicans,1
+1257,Thymol,151,Streptococcus mutans,1
+21,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",137,Staphylococcus aureus,1
+793,Hesperidin,146,Staphylococcus saprophyticus,0
+882,LL-37,2,Acinetobacter baumannii,1
+213,"2-(hexylsulfonyl)-4-(1H-1,2,3-triazol-1-yl)pyrimidine",30,Burkholderia multivorans,0
+1140,Rhein,151,Streptococcus mutans,1
+1083,Phenyl-arginine-b-naphthylamide,24,Bacteroides fragilis,0
+436,Amphotericin B,4,Acinetobacter oleiovorans,0
+1250,Tetracycline,67,Escherichia coli,1
+34,(2E)-3-(3-hydroxy-4-methoxyphenyl)-1-phenylprop-2-en-1-one,19,Bacillus cereus,0
+726,FV7,149,Streptococcus gordonii,0
+17,"(2E)-1-(1,3-benzodioxol-5-yl)-3-(2-chloro-quinolin-3-yl)-2-propen-1-one",137,Staphylococcus aureus,1
+851,Kaempherol,171,Vibrio harveyi,1
+26,"(2E)-1-(3 ,5 -dimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",121,Pseudomonas aeruginosa,1
+712,Esculin hydrate,28,Burkholderia cenocepacia,1
+1188,Silver sulfadiazine,110,Neisseria gonorrhoeae,0
+1023,Norspermidine,7,Actinomyces oris,0
+889,Lemon,47,Clostridium perfringens,0
+261,3-(1-Naphthyl)-D-Alanine,0,Achromobacter sp.,0
+849,KSL-W,12,Amycolatopsis orientalis,0
+636,D-Tryptophan,143,Staphylococcus epidermis,1
+947,Myrrh oil,141,Staphylococcus cohnii,0
+198,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-phenyl-1,3,4-oxadiazole",148,Streptococcus epidermidis,1
+1265,Tobramycin,137,Staphylococcus aureus,1
+1057,Palmitic acid,121,Pseudomonas aeruginosa,1
+1293,Vanillic acid,147,Stenotrophomonas maltophilia,0
+953,N -(4-trifluoromethyl-benzylidene)benzohydrazide,151,Streptococcus mutans,1
+579,Chrysophanol,147,Stenotrophomonas maltophilia,1
+1221,Sulfamethoxazole,23,Bacteroides eggerthii,0
+1167,SMAP-29,137,Staphylococcus aureus,1
+468,Baicalein,137,Staphylococcus aureus,1
+164,16P,142,Staphylococcus epidermidis,1
+1130,RK-25,10,Aeromonas sobria,0
+948,Myxinidin,137,Staphylococcus aureus,1
+148,11(R)-hydroxy-12(20)-en-knightol acetate,121,Pseudomonas aeruginosa,1
+913,Magainin-I,74,Geobacillus kaustophilus,0
+583,Cinnamaldehyde,171,Vibrio harveyi,1
+945,Myristic acid,67,Escherichia coli,1
+788,Hamamelitannin,141,Staphylococcus cohnii,1
+194,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(ethylthio)-1,3,4-oxadiazole",121,Pseudomonas aeruginosa,1
+930,Meticillin,126,Pseudomonas putida,0
+276,3-(pyridin-3-yl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,67,Escherichia coli,1
+297,3-geranyl-1-(2-methylpropanoyl)phloroglucinol,142,Staphylococcus epidermidis,1
+935,Midazolam,137,Staphylococcus aureus,0
+990,NA-CATH,137,Staphylococcus aureus,1
+793,Hesperidin,171,Vibrio harveyi,1
+6,"(1R,2S,7R,3E,8E,11E)-2,18-diacetoxycembra-3,8,11,15(17)-tetraen-7-ol",121,Pseudomonas aeruginosa,1
+607,Colistin sodium methanesulfonate,174,Yersinia enterocolitica,0
+1126,R-FV-I16,121,Pseudomonas aeruginosa,1
+532,Catechin gallate,172,Vibrio parahaemolyticus,0
+8,"(1R,3S,7R,8S,11S,12R)-3-hydroxy-1,4,8-trimethyl-12-(propan-2-yl)tricyclo[9.3.0.0]tetradec-4-en-6-one",125,Pseudomonas libaniensis,0
+949,Myxinidin1,121,Pseudomonas aeruginosa,1
+1307,YC-1 compound,163,Streptomyces sp.,0
+276,3-(pyridin-3-yl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,64,Enterococcus faecalis,1
+747,Furanone 56,121,Pseudomonas aeruginosa,1
+13,"(2-(4-chlorophenyl)- 4-{[(6-methyl-2-pyridinyl)amino]methylene}-1,3-oxazol- 5(4H)-one)",117,Proteus mirabilis,0
+1345,dF21-10K,159,Streptococcus sanguis,0
+945,Myristic acid,121,Pseudomonas aeruginosa,1
+1098,Pleurocidin,65,Enterococcus faecium,1
+114,"1,2,3,4-Tetrahydroisoquinoline-3-carboxylic acid",28,Burkholderia cenocepacia,0
+446,Asperdiol,137,Staphylococcus aureus,1
+1151,Rosoxacin,18,Bacillus anthracis,0
+235,2-amino-imidazole/ triazole conjugate,32,Burkholderia thailandensis,0
+1230,TZD-C8,37,Candida guiliermondi,0
+154,"13-(2-chloro-7-methylquinolin-3-yl)-3,3-dimethyl-1H,2H,3H,4H,6H,11H,13H-indazolo[1,2-b]phthalazine-1,6,11-trione",93,Influenza B virus,0
+931,Metronidazole,47,Clostridium perfringens,1
+444,Apramycin,163,Streptomyces sp.,0
+1065,Penicillenol A1,137,Staphylococcus aureus,1
+1067,Penicillenol B1,137,Staphylococcus aureus,1
+133,"1-[2-(3,5-dichlorophenyl)-5-(3,4,5-trimethoxyphenyl)-1,3,4-oxadiazol-3(2H)-yl]ethanone",142,Staphylococcus epidermidis,1
+894,Linalool,19,Bacillus cereus,1
+612,Coumarin,168,Vibrio anguillarum,1
+652,Daptomycin,17,Bacillus amyloliquefaciens,0
+1040,Olmesartran,109,Mycobacterium tuberculosis,0
+267,3-(2-Thienyl)-D-alanine,137,Staphylococcus aureus,1
+143,1-{4-phenyl-2-[(E)-2-[4-(trifluoromethoxy)phenyl]ethenyl]quinolin-3-yl}ethan-1-one,104,Micrococcus luteus,1
+969,N-(4-Bromobenzylidene)benzohydrazide,111,Obesumbacterium proteus,0
+701,Epicatechin,173,Vibrio vulnificus,0
+228,2-amino-3-(4-methylbenzenesulfinyl)propanoic acid,159,Streptococcus sanguis,1
+1273,Trimethoprim-sulfamethoxazole,93,Influenza B virus,0
+36,"(2E)-5-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]-3-formylpent-2-enoic acid",122,Pseudomonas chlororaphis,0
+74,"(5E)-5-hexylidene-1,3-thiazolidine-2,4-dione",152,Streptococcus oralis,0
+66,"(2S,3R,4S,5S,6R)-6-(Acetoxymethyl)-3-dodecanamidotetrahydro-2H-pyran-2,4,5-triyl triacetate",118,Proteus vulgaris,0
+560,Ceftazidime hydrate,28,Burkholderia cenocepacia,1
+1048,Oxytetracycline,58,Enteric bacteria and other eubacteria,1
+1336,cat-AGE-RK2,34,Candida albicans,1
+764,Gallic Acid,8,Actinoplanes missouriensis,0
+1235,Taurine,53,Desulfovibrio africanus,0
+458,Aztreonam,43,Citrobacter freundii,1
+296,3-geranyl-1-(2-methylbutanoyl)phloroglucinol,137,Staphylococcus aureus,1
+685,Dodecyl beta-maltoside,103,Marinobacter hydrocarbonoclasticus,0
+104,(Z)-4-bromo-5-(bromomethylene)-3-butyl-2(5H)-furanone,5,Acinetobacter sp.,0
+579,Chrysophanol,151,Streptococcus mutans,1
+1142,Ribavirin,1,Achromobacter xylosoxidans,0
+171,"2,3-dihydroxybenzoic acid",102,Lysinibacillus sphaericus,0
+62,"(2S,3R,4S,5S,6R)-6-(Acetoxymethyl)-3-(3-oxohexanamido)tetrahydro-2H-pyran-2,4,5-triyl triacetate",68,Escherichia coli O6:H1 (strain CFT073 / ATCC 700928 / UPEC),0
+496,"Butane-1,4-diamine",25,Bacteroides uniformis,0
+262,3-(2-Furyl)-D-alanine,34,Candida albicans,0
+1108,Propyl gallate,151,Streptococcus mutans,1
+1234,Tannic acid,117,Proteus mirabilis,1
+1015,Nitrofural,112,Pantoea agglomerans,0
+437,Ampicillin,137,Staphylococcus aureus,1
+34,(2E)-3-(3-hydroxy-4-methoxyphenyl)-1-phenylprop-2-en-1-one,73,Gardnerella vaginalis,0
+437,Ampicillin,21,Bacillus subtilis,1
+222,2-Methoxy-D-Phenylalanine,70,Firmicutes,0
+1106,Prolificin A,142,Staphylococcus epidermidis,1
+24,"(2E)-1-(3 ,4 ,5 -trimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",64,Enterococcus faecalis,1
+552,Cefotaxime,21,Bacillus subtilis,1
+64,"(2S,3R,4S,5S,6R)-6-(Acetoxymethyl)-3-butyramidotetrahydro-2H-pyran-2,4,5-triyl triacetate",81,Hepatitis B virus F,0
+1069,Penicillenol C1,121,Pseudomonas aeruginosa,1
+864,L-Phenylalanine-D-Lysine,118,Proteus vulgaris,0
+20,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-chloro-quinolin-3-yl)-2-propen-1-one",121,Pseudomonas aeruginosa,1
+1048,Oxytetracycline,67,Escherichia coli,1
+1235,Taurine,7,Actinomyces oris,1
+28,(2E)-1-(4 -methoxyphenyl)-3-(2-naphthyl)-2-propen-1-one,121,Pseudomonas aeruginosa,1
+1326,alpha-mangostin,97,Kocuria rhizophila,0
+546,Cefixime,117,Proteus mirabilis,1
+44,(2R)-2-amino-3-(thiophene-2-sulfinyl)propanoic acid,151,Streptococcus mutans,1
+484,Betulin,171,Vibrio harveyi,0
+808,IDR-1018,95,Klebsiella pneumoniae,1
+1033,Octadecyl gallate,137,Staphylococcus aureus,1
+315,4-(Aminomethyl)-D-phenylalanine,154,Streptococcus pneumoniae,0
+1236,Tazobactam,60,Enterobacter cancerogenus,0
+945,Myristic acid,95,Klebsiella pneumoniae,1
+367,"5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazole-2-thiol",138,Staphylococcus capitis,0
+484,Betulin,17,Bacillus amyloliquefaciens,1
+307,"3-{2-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]ethyl}-N-(2-fluorophenyl)-5-methylidene-2,5-dihydrofuran-2-amine",117,Proteus mirabilis,1
+733,Flavonoids 3,84,Human herpesvirus 1,0
+1171,Salicylic Acid,34,Candida albicans,1
+958,"N-((1E)-{4-ethoxy-3-[(8-oxo-1,5,6,8-tetrahydro-2H-1,5-methanopyrido[1,2-a][1,5]diazocin-3(4H)-yl)methyl]phenyl}methylene)-3,4,5-trihydroxybenzohydrazide",2,Acinetobacter baumannii,1
+271,3-(4-Pyridinyl)alanine,143,Staphylococcus epidermis,1
+1319,Zotepine,24,Bacteroides fragilis,0
+552,Cefotaxime,100,Listeria monocytogenes,1
+1270,Triclosan,109,Mycobacterium tuberculosis,1
+1346,den-SB056,115,Porphyromonas gingivalis,0
+142,"1-{2-[(E)-2-[3,5-bis(trifluoromethyl)phenyl]ethenyl]-4-phenylquinolin-3-yl}ethan-1-one",67,Escherichia coli,1
+93,(R)-2-amino-3-cyclohexylpropanoic acid,169,Vibrio campbellii,0
+717,Ethyl gallate,142,Staphylococcus epidermidis,1
+950,Myxinidin2,100,Listeria monocytogenes,1
+22,"(2E)-1-(2 ,5 -dimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",121,Pseudomonas aeruginosa,1
+526,Carminic acid,13,Aquifex aeolicus,0
+1115,Pyrimidinedione,142,Staphylococcus epidermidis,1
+872,L-tryptophan,21,Bacillus subtilis,1
+842,Itraconazole,42,Chromobacterium violaceum,0
+599,Clomocycline,39,Candida parapsilosis,0
+730,Ferrous,160,Streptococcus sobrinus,0
+588,Ciprofloxacin,67,Escherichia coli,1
+241,"2-geranyloxy-4,6-dihydroxybenzophenone",5,Acinetobacter sp.,0
+1077,Peptide 1,69,Eubacterium ramulus,0
+488,Biphenyl,163,Streptomyces sp.,0
+199,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-styryl-1,3,4-oxadiazole",121,Pseudomonas aeruginosa,1
+562,Ceftobiprole,67,Escherichia coli,1
+1037,Oleanolic Acid,108,Mycobacterium smegmatis,1
+384,5-fluoroindole,9,Aeromonas hydrophila,0
+143,1-{4-phenyl-2-[(E)-2-[4-(trifluoromethoxy)phenyl]ethenyl]quinolin-3-yl}ethan-1-one,42,Chromobacterium violaceum,0
+641,D/L-Aspartate,51,Cryptococcus neoformans,0
+1189,Silver sulphate,82,Hepatitis C Virus,0
+1231,Tachyplesin III,94,Klebsiella planticola,0
+192,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(2,4-dichlorophenyl)-1,3,4-oxadiazole",80,Hepatitis B virus D,0
+12,(1Z)-ethylidene-lambda4-sulfanyliumolate,159,Streptococcus sanguis,1
+1376,trans-2-dodecenoic acid,19,Bacillus cereus,0
+132,"1-[2-(2-nitrophenyl)-5-phenyl-1,3,4-oxadiazol-3(2H)-yl]ethanone",151,Streptococcus mutans,1
+509,CAMA,173,Vibrio vulnificus,0
+1156,S-(2-thiazoyl)-L-cysteine,45,Clostridium leptum,0
+550,Cefoperazone,121,Pseudomonas aeruginosa,1
+21,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",151,Streptococcus mutans,1
+134,"1-[2-(3-bromo-4-hydroxy-5-methoxyphenyl)-5-(3,4,5-trimethoxyphenyl)-1,3,4-oxadiazol-3(2H)-yl]ethanone",142,Staphylococcus epidermidis,1
+483,Besifloxacin,94,Klebsiella planticola,0
+785,HE10,115,Porphyromonas gingivalis,0
+10,(1Z)-(2-phenylethylidene)-lambda4-sulfanyliumolate,7,Actinomyces oris,1
+464,Bacalin hydrate,145,Staphylococcus haemolyticus,0
+146,1010cys,143,Staphylococcus epidermis,0
+1093,Piperacillin,100,Listeria monocytogenes,1
+1359,n-Hexane,49,Corynebacterium ammoniagenes,0
+952,N -(3-nitro-4-hydroxy-benzylidene)benzohydrazide,64,Enterococcus faecalis,1
+207,"2-(4-methoxyphenyl)-N-(3-{[2-(4-methoxyphenyl)ethyl]imino}-1,4-dihydro-2-quinox alinylidene)ethanamine",149,Streptococcus gordonii,1
+955,N -(pyridin-3-yl-methylene)benzohydrazide,137,Staphylococcus aureus,1
+913,Magainin-I,15,Aspergillus fumigatus,0
+727,Farnesol,28,Burkholderia cenocepacia,1
+28,(2E)-1-(4 -methoxyphenyl)-3-(2-naphthyl)-2-propen-1-one,137,Staphylococcus aureus,1
+275,3-(Trifluoromethyl)phenylalanine,67,Escherichia coli,0
+904,Lys-a1,160,Streptococcus sobrinus,1
+242,2-methoxy-cinnamaldehyde,41,Candida tropicalis,0
+135,"1-[2-(naphthalen-1-yl)-5-(3,4,5-trimethoxyphenyl)-1,3,4-oxadiazol-3(2H)-yl]ethanone",151,Streptococcus mutans,1
+1316,Zinc oxide,67,Escherichia coli,1
+758,G H12,149,Streptococcus gordonii,1
+43,(2R)-2-amino-3-(benzenesulfinyl)propanoic acid,159,Streptococcus sanguis,1
+504,C16-33,151,Streptococcus mutans,1
+791,Heptamethoxyflavone,171,Vibrio harveyi,1
+1244,Terconazole,156,Streptococcus pyogenes,0
+1146,Rifapentine,160,Streptococcus sobrinus,0
+1364,p-Coumaric acid,67,Escherichia coli,1
+1263,Tipranavir,45,Clostridium leptum,0
+641,D/L-Aspartate,110,Neisseria gonorrhoeae,0
+555,Cefoxitin,67,Escherichia coli,1
+512,CSP,16,Aspergillus niger,0
+307,"3-{2-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]ethyl}-N-(2-fluorophenyl)-5-methylidene-2,5-dihydrofuran-2-amine",151,Streptococcus mutans,1
+572,Chloramphenicol,108,Mycobacterium smegmatis,0
+610,Copper sulfate,142,Staphylococcus epidermidis,1
+1067,Penicillenol B1,15,Aspergillus fumigatus,0
+242,2-methoxy-cinnamaldehyde,150,Streptococcus mitis,0
+1253,Thiazolidinedione-8,23,Bacteroides eggerthii,0
+92,(R)-2-Amino-3-biphenyl-3-yl-propionic acid,10,Aeromonas sobria,0
+92,(R)-2-Amino-3-biphenyl-3-yl-propionic acid,139,Staphylococcus caprae,0
+486,Bevirimat,53,Desulfovibrio africanus,0
+1152,Rufloxacin,76,Hafnia alvei,0
+505,C16G2,3,Acinetobacter nosocomialis,0
+147,11(R)-hydroxy-12(20)-en-knightal,121,Pseudomonas aeruginosa,1
+195,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(methylthio)-1,3,4-oxadiazole",47,Clostridium perfringens,0
+546,Cefixime,95,Klebsiella pneumoniae,1
+1182,Siamycin I,91,Human respiratory syncytial virus B,0
+873,LF11-215,50,Cronobacter sakazakii,0
+529,Carvacrol,151,Streptococcus mutans,1
+1066,Penicillenol A2,137,Staphylococcus aureus,1
+593,Clary sage,113,Pichia anomala,1
+1321,alpha-Defensin-3,112,Pantoea agglomerans,0
+1317,Zinc sulfate,67,Escherichia coli,1
+608,Colostrum Hexasaccharide,4,Acinetobacter oleiovorans,0
+219,2-Hexylmaleic anhydride,5,Acinetobacter sp.,0
+403,7-fluoroindole,16,Aspergillus niger,0
+461,BMAP-28,137,Staphylococcus aureus,1
+845,K4-S4,77,Hafnia paralvei,0
+577,Chromate,47,Clostridium perfringens,0
+270,3-(3-fluorophenyl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,67,Escherichia coli,1
+727,Farnesol,137,Staphylococcus aureus,1
+1267,Tomentosin,37,Candida guiliermondi,0
+603,Clozapine,129,Salmonella enterica,0
+236,"2-bromo-4-methyl-6-(3,4,5-tribromo-1H-pyrrole-2-carbonyl)phenol",137,Staphylococcus aureus,1
+1018,Nodakenetin,132,Serratia marcescens,0
+822,Indole-3-acetaldehyde,148,Streptococcus epidermidis,0
+238,2-bromohexanoic acid,92,Influenza A virus,0
+834,Isohydnocarpin,54,Dihydropteroate synthase type-1,0
+156,"13-(2-chloroquinolin-3-yl)-3,3-dimethyl-1H,2H,3H,4H,6H,11H,13H-indazolo[1,2-b]phthalazine-1,6,11-trione",34,Candida albicans,1
+273,3-(4-fluorophenyl)-5-(3-ethoxy- 4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,137,Staphylococcus aureus,1
+402,7-chloroquinolin-4-ol,125,Pseudomonas libaniensis,0
+1370,para-toluidine,174,Yersinia enterocolitica,0
+281,3-Chlorotyrosine,143,Staphylococcus epidermis,1
+139,1-{2-[(E)-2-(4-chlorophenyl)ethenyl]-4-phenylquinolin-3-yl}ethan-1-one,67,Escherichia coli,1
+461,BMAP-28,64,Enterococcus faecalis,1
+333,4-Hydroxychalcone,78,Halomonas pacifica,0
+454,Avibactam,166,Trueperella pyogenes,0
+645,DJK6,129,Salmonella enterica,1
+490,BisEDT-RIP,56,Eggerthella lenta,0
+1280,Tyrosol,106,Mycobacterium avium,0
+17,"(2E)-1-(1,3-benzodioxol-5-yl)-3-(2-chloro-quinolin-3-yl)-2-propen-1-one",64,Enterococcus faecalis,1
+801,Holothuroidin 2,1,Achromobacter xylosoxidans,0
+43,(2R)-2-amino-3-(benzenesulfinyl)propanoic acid,151,Streptococcus mutans,1
+10,(1Z)-(2-phenylethylidene)-lambda4-sulfanyliumolate,131,Serratia liquefaciens,0
+860,L-Aspartate,140,Staphylococcus chromogenes,1
+1044,Oxacillin,137,Staphylococcus aureus,1
+293,3-chloro-5-hydroxy-4-[(4-methylphenylsulfanyl)]-2(5H)-furanone,116,Propionibacterium acnes,0
+1338,cis-4-Hydroxy-L-proline,111,Obesumbacterium proteus,0
+83,"(5Z)-2-(1,1-dichlorobut-3-yn-1-yl)-5-{[4-(trifluoromethyl)phenyl]methylidene}-1,3-oxazolidin-4-one",141,Staphylococcus cohnii,0
+894,Linalool,67,Escherichia coli,1
+1032,OSIP108,35,Candida dubliniensis,1
+158,"13-{7-methoxy-[1,2,3,4]tetrazolo[1,5-a]quinolin-4-yl}-3,3-dimethyl-1H,2H,3H,4H,6H,11H,13H-indazolo[1,2-b]phthalazine-1,6,11-trione",165,Trichophyton mentagrophytes,0
+461,BMAP-28,36,Candida glabrata,1
+837,Isopropanol,81,Hepatitis B virus F,0
+1289,Usnic acid,18,Bacillus anthracis,0
+1036,Ofloxacin,6,Actinobacillus actinomycetemcomitans,0
+456,Azithromycin,58,Enteric bacteria and other eubacteria,1
+447,Asperdiol acetate,171,Vibrio harveyi,1
+362,4H-tomentosin,28,Burkholderia cenocepacia,0
+1325,alpha-costic acid,135,Sphingomonas sp. Ibu-2,0
+911,MUC7 20-mer,100,Listeria monocytogenes,0
+1187,Silver nitrate,142,Staphylococcus epidermidis,1
+1194,Sinensetin,48,Coagulase- negative staphylococci,0
+1124,Quinupristin,58,Enteric bacteria and other eubacteria,1
+583,Cinnamaldehyde,30,Burkholderia multivorans,1
+291,3-[(prop-2-ene-1-sulfinyl)sulfanyl]prop-1-ene,151,Streptococcus mutans,1
+622,D-2-Methylphenylalanine,153,Streptococcus parasanguinis,0
+446,Asperdiol,121,Pseudomonas aeruginosa,1
+584,Cinnamic Acid,9,Aeromonas hydrophila,0
+615,Curcumin,67,Escherichia coli,1
+949,Myxinidin1,137,Staphylococcus aureus,1
+1017,Nobiletin,171,Vibrio harveyi,1
+1289,Usnic acid,55,Edwardsiella tarda,0
+289,3-Nitro-D-tyrosine,143,Staphylococcus epidermis,1
+574,Chlorhexidine acetate,151,Streptococcus mutans,1
+631,D-LL-37,137,Staphylococcus aureus,1
+1153,Rutaecarpine,129,Salmonella enterica,0
+808,IDR-1018,129,Salmonella enterica,1
+618,Cyclobutanamine,113,Pichia anomala,0
+19,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-chloro-6-methoxy-quinolin-3-yl)-2-propen-1-one",108,Mycobacterium smegmatis,0
+308,"3-{2-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]ethyl}-N-(3-fluorophenyl)-5-methylidene-2,5-dihydrofuran-2-amine",137,Staphylococcus aureus,1
+213,"2-(hexylsulfonyl)-4-(1H-1,2,3-triazol-1-yl)pyrimidine",146,Staphylococcus saprophyticus,0
+989,"N1-[7-(trifluoromethyl)quinolin-4-yl]octane-1,8-diamine",121,Pseudomonas aeruginosa,0
+165,16P-AC,169,Vibrio campbellii,0
+710,Esculetin,30,Burkholderia multivorans,1
+822,Indole-3-acetaldehyde,94,Klebsiella planticola,0
+962,"N-((2R,3R,4S,5S,6R)-2,4,5-Trihydroxy-6-(hydroxymethyl)tetrahydro-2H-pyran-3-yl)octanamide",94,Klebsiella planticola,0
+379,5-Fluorocytosine,49,Corynebacterium ammoniagenes,0
+334,4-Iodo-d-phenylalanine,40,Candida spp.,0
+725,FS8,65,Enterococcus faecium,0
+1134,RTA3,105,Morganella morganii,0
+596,Clindamycin,104,Micrococcus luteus,0
+927,Methyl gallate,64,Enterococcus faecalis,1
+1094,Piperacillin-Tazobactam,157,Streptococcus salivarius,0
+634,D-Phenylalanine,95,Klebsiella pneumoniae,0
+993,NA12,155,Streptococcus pneumoniae serotype 4,0
+270,3-(3-fluorophenyl)-5-(3-ethoxy-4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,137,Staphylococcus aureus,1
+764,Gallic Acid,67,Escherichia coli,1
+1302,Vitamin E,81,Hepatitis B virus F,0
+808,IDR-1018,47,Clostridium perfringens,0
+764,Gallic Acid,137,Staphylococcus aureus,1
+801,Holothuroidin 2,171,Vibrio harveyi,0
+1094,Piperacillin-Tazobactam,40,Candida spp.,1
+281,3-Chlorotyrosine,107,Mycobacterium leprae,0
+888,Latamoxef,45,Clostridium leptum,0
+1268,Toremifene,121,Pseudomonas aeruginosa,1
+886,Lamivudine,89,Human immunodeficiency virus 1,1
+951,Myxinidin3,137,Staphylococcus aureus,1
+1321,alpha-Defensin-3,2,Acinetobacter baumannii,0
+955,N -(pyridin-3-yl-methylene)benzohydrazide,68,Escherichia coli O6:H1 (strain CFT073 / ATCC 700928 / UPEC),0
+726,FV7,121,Pseudomonas aeruginosa,1
+614,Crocin,163,Streptomyces sp.,0
+300,3-hydroxychalcone,138,Staphylococcus capitis,0
+803,Human beta-defensin 3,172,Vibrio parahaemolyticus,0
+1187,Silver nitrate,137,Staphylococcus aureus,1
+189,2-(2-(2-Chloroacetamido)phenyl )-2-oxo-N-( prop-2-yn-1-yl )acetamide,13,Aquifex aeolicus,0
+1253,Thiazolidinedione-8,19,Bacillus cereus,0
+1326,alpha-mangostin,110,Neisseria gonorrhoeae,0
+1128,RI-19,98,Lactobacillus fermenti,0
+38,"(2E)-N-(6-nitro-1,3-benzothiazol-2-yl)-3-phenylprop-2-enamide",111,Obesumbacterium proteus,0
+877,LFampin,79,Helicobacter pylori,0
+626,D-Aspartate,146,Staphylococcus saprophyticus,0
+1024,Novobiocin,81,Hepatitis B virus F,0
+191,"2-(2-chloro-5-fluorophenyl)-5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazole",148,Streptococcus epidermidis,1
+800,Holothuroidin 1,137,Staphylococcus aureus,1
+512,CSP,158,Streptococcus sanguinis,1
+474,Benzbromarone,83,Hepatitis C virus,0
+41,"(2R)-2-amino-3-(2,3-dihydro-1H-inden-2-yl)propanoic acid",137,Staphylococcus aureus,1
+722,Evodiamine,113,Pichia anomala,0
+546,Cefixime,137,Staphylococcus aureus,1
+1192,Sinapic acid,105,Morganella morganii,0
+746,Furanone,100,Listeria monocytogenes,0
+858,L-4-Carbamoylphenylalanine,140,Staphylococcus chromogenes,0
+199,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-styryl-1,3,4-oxadiazole",148,Streptococcus epidermidis,1
+927,Methyl gallate,92,Influenza A virus,0
+799,Histatin 5,36,Candida glabrata,1
+241,"2-geranyloxy-4,6-dihydroxybenzophenone",4,Acinetobacter oleiovorans,0
+969,N-(4-Bromobenzylidene)benzohydrazide,58,Enteric bacteria and other eubacteria,0
+922,Meta-bromo-thiolactone,57,Eikenella corrodens,0
+128,1-(6-aminopyridin-3-yl)ethan-1-one,162,Streptomyces rubiginosus,0
+644,DJK5,129,Salmonella enterica,1
+377,"5-Chloro-1-(2-chloroacetyl)indoline-2,3-dione",38,Candida krusei,0
+985,"N1-(7-chloroquinolin-4-yl)ethane-1,2-diamine",16,Aspergillus niger,0
+1343,cyclophosphamide,141,Staphylococcus cohnii,0
+705,Epigallocatechin Gallate,142,Staphylococcus epidermidis,1
+11,(1Z)-(prop-2-en-1-ylidene)-lambda4-sulfanyliumolate,7,Actinomyces oris,1
+254,"3,4-Dichlorophenylalanine",159,Streptococcus sanguis,0
+1377,trans-Resveratrol,18,Bacillus anthracis,0
+1194,Sinensetin,19,Bacillus cereus,0
+214,"2-Benzyl-5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazole",148,Streptococcus epidermidis,1
+747,Furanone 56,126,Pseudomonas putida,0
+863,L-Phenylalanine,161,Streptomyces gordonii,0
+774,Gentamicin,144,Staphylococcus equorum,0
+134,"1-[2-(3-bromo-4-hydroxy-5-methoxyphenyl)-5-(3,4,5-trimethoxyphenyl)-1,3,4-oxadiazol-3(2H)-yl]ethanone",121,Pseudomonas aeruginosa,1
+36,"(2E)-5-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]-3-formylpent-2-enoic acid",137,Staphylococcus aureus,1
+617,Cyclacillin,137,Staphylococcus aureus,1
+330,4-Fluoro-D-phenylalanine,137,Staphylococcus aureus,1
+28,(2E)-1-(4 -methoxyphenyl)-3-(2-naphthyl)-2-propen-1-one,151,Streptococcus mutans,1
+189,2-(2-(2-Chloroacetamido)phenyl )-2-oxo-N-( prop-2-yn-1-yl )acetamide,134,Shigella flexneri,0
+760,G2,151,Streptococcus mutans,1
+428,Aloe-emodin,169,Vibrio campbellii,0
+663,Di-MB-LF11-322,89,Human immunodeficiency virus 1,0
+969,N-(4-Bromobenzylidene)benzohydrazide,137,Staphylococcus aureus,1
+1194,Sinensetin,141,Staphylococcus cohnii,0
+735,Fleroxacin,137,Staphylococcus aureus,0
+447,Asperdiol acetate,87,Human herpesvirus 5,0
+182,2-(2-(2-Azidoacetamido)-5-fluorophenyl)-2-oxo-N-( prop-2-yn-1-yl)acetamide,148,Streptococcus epidermidis,0
+345,4-bromo-5-(bromomethylene)-3-butyl-2(5H)- furanone,142,Staphylococcus epidermidis,1
+144,"1-{6-nitro-4-phenyl-2-[(E)-2-(3,4,5-trimethoxyphenyl)ethenyl]quinolin-3-yl}ethan-1-one",137,Staphylococcus aureus,1
+466,Bacitracin,77,Hafnia paralvei,0
+308,"3-{2-[(1S,2R,4aR,8aR)-1,2,4a,5-tetramethyl-1,2,3,4,4a,7,8,8a-octahydronaphthalen-1-yl]ethyl}-N-(3-fluorophenyl)-5-methylidene-2,5-dihydrofuran-2-amine",117,Proteus mirabilis,1
+828,Ionic silver,19,Bacillus cereus,0
+285,3-Iodotyrosine,151,Streptococcus mutans,0
+145,1-{6-nitro-4-phenyl-2-[(E)-2-[4-(trifluoromethoxy)phenyl]ethenyl]quinolin-3-yl}ethan-1-one,94,Klebsiella planticola,1
+20,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-chloro-quinolin-3-yl)-2-propen-1-one",142,Staphylococcus epidermidis,1
+502,Butyl gallate,151,Streptococcus mutans,1
+54,(2S)-2-amino-3-(tert-butylsulfanyl)propanoic acid,143,Staphylococcus epidermis,1
+636,D-Tryptophan,38,Candida krusei,0
+858,L-4-Carbamoylphenylalanine,22,Bacteroides,0
+583,Cinnamaldehyde,168,Vibrio anguillarum,1
+705,Epigallocatechin Gallate,137,Staphylococcus aureus,1
+139,1-{2-[(E)-2-(4-chlorophenyl)ethenyl]-4-phenylquinolin-3-yl}ethan-1-one,21,Bacillus subtilis,1
+1160,S-carboxylmethyl-L-cysteine,151,Streptococcus mutans,1
+1023,Norspermidine,151,Streptococcus mutans,1
+858,L-4-Carbamoylphenylalanine,137,Staphylococcus aureus,1
+1073,Pentagalloylglucose,158,Streptococcus sanguinis,0
+817,Imperatorin,124,Pseudomonas japonica,0
+1320,[(ethanesulfinyl)sulfanyl]ethane,149,Streptococcus gordonii,0
+936,Minocycline,137,Staphylococcus aureus,1
+629,D-Cystine,143,Staphylococcus epidermis,1
+524,Carbonyl cyanide m-chlorophenylhydrazone,121,Pseudomonas aeruginosa,1
+273,3-(4-fluorophenyl)-5-(3-ethoxy- 4-hydroxybenzylidene)-2-thioxothiazolidin-4-one,119,Providencia stuartii,0
+794,Hetacillin,97,Kocuria rhizophila,0
+948,Myxinidin,1,Achromobacter xylosoxidans,0
+262,3-(2-Furyl)-D-alanine,143,Staphylococcus epidermis,1
+226,2-amino-3-(3-chlorophenyl)propanoic acid,52,Dengue Virus Type 2,0
+1216,Sulfadoxine,165,Trichophyton mentagrophytes,0
+6,"(1R,2S,7R,3E,8E,11E)-2,18-diacetoxycembra-3,8,11,15(17)-tetraen-7-ol",137,Staphylococcus aureus,1
+1032,OSIP108,95,Klebsiella pneumoniae,0
+223,2-Methoxyhydroquinone,114,Plasmodium falciparum,0
+178,2- geranyloxy-1-(2-methylbutanoyl)phloroglucinol,137,Staphylococcus aureus,1
+644,DJK5,121,Pseudomonas aeruginosa,1
+37,"(2E)-N -(2 -hydroxy-5 -bromo-benzilidene)-3,4,5-trimethoxybenzohydrazide",142,Staphylococcus epidermidis,1
+229,2-amino-3-(prop-2-ene-1-sulfinyl)propanoic acid,17,Bacillus amyloliquefaciens,0
+1310,Zanamivir,85,Human herpesvirus 3,0
+1043,Oseltamivir,34,Candida albicans,0
+1317,Zinc sulfate,121,Pseudomonas aeruginosa,1
+196,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(phenylthio)-1,3,4-oxadiazole",137,Staphylococcus aureus,1
+1167,SMAP-29,147,Stenotrophomonas maltophilia,1
+85,"(5Z)-2-(2,2-dimethylpropyl)-5-{[3-(trifluoromethyl)phenyl]methylidene}-1,3-oxazolidin-4-one",132,Serratia marcescens,0
+1185,Silver nanoparticles,142,Staphylococcus epidermidis,1
+800,Holothuroidin 1,121,Pseudomonas aeruginosa,1
+20,"(2E)-1-(2 ,4 ,5 -trimethoxyphenyl)-3-(2-chloro-quinolin-3-yl)-2-propen-1-one",137,Staphylococcus aureus,1
+1082,Phenoxymethylpenicillin,137,Staphylococcus aureus,1
+838,Isoriccardin C,14,Arthrobacter sp.,0
+1080,Phenobarbitone,38,Candida krusei,0
+945,Myristic acid,118,Proteus vulgaris,1
+545,Cefepime,121,Pseudomonas aeruginosa,1
+1364,p-Coumaric acid,124,Pseudomonas japonica,0
+622,D-2-Methylphenylalanine,82,Hepatitis C Virus,0
+505,C16G2,161,Streptomyces gordonii,0
+706,Ertapenem,76,Hafnia alvei,0
+465,Bacampicillin,148,Streptococcus epidermidis,0
+803,Human beta-defensin 3,137,Staphylococcus aureus,1
+1078,Peptide 1037,72,Fusarium solani,0
+70,"(3R)-7-hydroxy-1,2,3,4-tetrahydroisoquinoline-3-carboxylic acid",98,Lactobacillus fermenti,0
+595,Clavulanate,72,Fusarium solani,0
+583,Cinnamaldehyde,173,Vibrio vulnificus,1
+1252,Tetrazol-1-yl,136,Staphlococcus aureus,0
+560,Ceftazidime hydrate,108,Mycobacterium smegmatis,0
+952,N -(3-nitro-4-hydroxy-benzylidene)benzohydrazide,140,Staphylococcus chromogenes,0
+513,CSP-C16,155,Streptococcus pneumoniae serotype 4,0
+142,"1-{2-[(E)-2-[3,5-bis(trifluoromethyl)phenyl]ethenyl]-4-phenylquinolin-3-yl}ethan-1-one",94,Klebsiella planticola,1
+146,1010cys,72,Fusarium solani,0
+747,Furanone 56,130,Schistosoma,0
+860,L-Aspartate,137,Staphylococcus aureus,1
+24,"(2E)-1-(3 ,4 ,5 -trimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",142,Staphylococcus epidermidis,1
+1071,Penicillic acid,19,Bacillus cereus,1
+352,4-chloroquinoline,26,Bacteroides vulgatus,0
+513,CSP-C16,158,Streptococcus sanguinis,1
+948,Myxinidin,121,Pseudomonas aeruginosa,1
+588,Ciprofloxacin,137,Staphylococcus aureus,1
+814,Idoxuridine,104,Micrococcus luteus,0
+593,Clary sage,144,Staphylococcus equorum,0
+762,GW 5074,163,Streptomyces sp.,0
+1185,Silver nanoparticles,34,Candida albicans,1
+1066,Penicillenol A2,121,Pseudomonas aeruginosa,1
+1124,Quinupristin,45,Clostridium leptum,0
+312,"4-(2-(5-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-1,3,4-oxadiazol-2-yl)vinyl)-2-methoxyphenol",137,Staphylococcus aureus,1
+1292,Vancomycin,81,Hepatitis B virus F,0
+222,2-Methoxy-D-Phenylalanine,143,Staphylococcus epidermis,1
+1090,Picolinic acid,154,Streptococcus pneumoniae,0
+193,"2-(4,5-dibromo-1-methyl-1H-pyrrol-2-yl)-5-(4-methoxyphenyl)-1,3,4-oxadiazole",137,Staphylococcus aureus,1
+980,N-Nonanoyl-cyclopentylamide,16,Aspergillus niger,0
+1139,Resveratrol,67,Escherichia coli,1
+695,Emodin,121,Pseudomonas aeruginosa,1
+141,1-{2-[(E)-2-(4-methoxyphenyl)ethenyl]-4-phenylquinolin-3-yl}ethan-1-one,123,Pseudomonas fluorescens,0
+285,3-Iodotyrosine,137,Staphylococcus aureus,1
+737,Flucloxacillin,79,Helicobacter pylori,0
+24,"(2E)-1-(3 ,4 ,5 -trimethoxyphenyl)-3-(2-naphthyl)-2-propen-1-one",121,Pseudomonas aeruginosa,1
+925,Methyl benzethonium chloride,119,Providencia stuartii,0
+152,"13-(2-chloro-6-methylquinolin-3-yl)-3,3-dimethyl-1H,2H,3H,4H,6H,11H,13H-indazolo[1,2-b]phthalazine-1,6,11-trione",34,Candida albicans,1
+263,"3-(2-Furylmethyl)-2-{[(5-hydroxy-1H-pyrazol-3-yl)methyl]sulfanyl}-3,5,6,7-tetrahydro-4H-cyclopenta[4,5]thieno[2,3-d]pyrimidin-4-one",2,Acinetobacter baumannii,1
+939,Moxifloxacin,147,Stenotrophomonas maltophilia,1
+378,5-Chloroindole,75,Haemophilus influenzae,0
+234,2-amino-6-fluorobenzoic acid,30,Burkholderia multivorans,1
