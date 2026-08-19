@@ -95,6 +95,19 @@ os.makedirs("data/output", exist_ok=True)
 # Mount experiments directory for confusion matrix & ROC curve images
 app.mount("/experiments", StaticFiles(directory="experiments"), name="experiments")
 
+# ============================================================
+# ROOT ENDPOINT (FIXES 'NOT FOUND' ERROR)
+# ============================================================
+@app.get("/")
+def read_root():
+    return {
+        "project": "Drug-Microbe AI",
+        "model": "HaGAT",
+        "status": "running",
+        "api_version": "1.0.0",
+        "docs_url": "/docs"
+    }
+
 @app.get("/dataset-stats")
 def get_dataset_stats():
     return {
