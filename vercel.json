@@ -1,5 +1,51 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "framework": "nextjs"
+
+  "services": {
+
+    "frontend": {
+
+      "root": "frontend/",
+
+      "framework": "nextjs"
+
+    },
+
+    "backend": {
+
+      "root": "server/",
+
+      "entrypoint": "main:app"
+
+    }
+
+  },
+
+  "rewrites": [
+
+    {
+
+      "source": "/svc/api/:path*",
+
+      "destination": {
+
+        "service": "backend"
+
+      }
+
+    },
+
+    {
+
+      "source": "/(.*)",
+
+      "destination": {
+
+        "service": "frontend"
+
+      }
+
+    }
+
+  ]
+
 }
