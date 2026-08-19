@@ -3,6 +3,7 @@ fastapi
 pydantic
 pandas
 numpy
+matplotlib
 argon2-cffi
 PyJWT
 torch==2.13.0
