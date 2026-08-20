@@ -184,6 +184,39 @@ def get_drugs():
 def get_microbes():
     return [{"id": i, "name": f"Microbe_{i}"} for i in range(10)]
 
+@app.get("/evaluation-files")
+def evaluation_files():
+    confusion_matrix = Path("experiments/confusion_matrix.png")
+    roc_curve = Path("experiments/roc_curve.png")
+    return {
+        "confusion_matrix": {
+            "available": confusion_matrix.exists(),
+            "url": "/experiments/confusion_matrix.png",
+        },
+        "roc_curve": {
+            "available": roc_curve.exists(),
+            "url": "/experiments/roc_curve.png",
+        },
+    }
+
+@app.get("/graph")
+def get_graph():
+    return {
+        "nodes": [
+            {"id": "drug_0", "type": "drug", "name": "Drug_0"},
+            {"id": "microbe_0", "type": "microbe", "name": "Microbe_0"}
+        ],
+        "links": [
+            {"source": "drug_0", "target": "microbe_0"}
+        ],
+        "statistics": {
+            "drug_nodes": 20,
+            "microbe_nodes": 10,
+            "total_nodes": 30,
+            "interactions": 1
+        }
+    }
+
 @app.post("/predict")
 def predict_interaction(payload: dict):
     drug_id = payload.get("drug_id", 0)
