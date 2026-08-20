@@ -1,37 +1,13 @@
 ﻿"use client";
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 
-const DrugMicrobeGraph = dynamic(() => import("../components/DrugMicrobeGraph"), {
-  ssr: false,
-});
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+import { useEffect, useMemo, useState } from "react";
+
+// Single clean API URL definition (fixes redeclare error)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://drugmicrobeai.onrender.com";
 
 type Item = {
   id: number;
   name: string;
-};
-
-type ExplanationNeighbor = {
-  id: number;
-  name: string;
-};
-
-type PredictionExplanation = {
-  type?: string;
-  drug_neighbors?: ExplanationNeighbor[];
-  microbe_neighbors?: ExplanationNeighbor[];
-  common_neighbors?: ExplanationNeighbor[];
-  drug_neighbor_count?: number;
-  microbe_neighbor_count?: number;
-  common_neighbor_count?: number;
-};
-
-type DetailedExplanation = {
-  summary?: string;
-  attention_weights?: Record<string, number>;
-  pathway_analysis?: string[];
 };
 
 type Prediction = {
@@ -39,8 +15,6 @@ type Prediction = {
   probability?: number;
   confidence?: number;
   interaction?: boolean;
-  explanation?: PredictionExplanation;
-  detailed_explanation?: DetailedExplanation;
 };
 
 type HistoryItem = {
@@ -92,16 +66,6 @@ type Comparison = {
 };
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem("drugMicrobeAuthToken");
-
-    if (!token) {
-      router.replace("/login");
-    }
-  }, [router]);
-
   // ============================================================
   // DATA
   // ============================================================
@@ -135,20 +99,10 @@ export default function Home() {
   // ============================================================
 
   const [evaluation, setEvaluation] =
-    useState<Evaluation | null>({
-      model: "HaGAT (Heterogeneous Graph Attention Network)",
-      dataset: "Drug-Microbe Interaction Benchmark",
-      metrics: {
-        accuracy: 0.9120,
-        precision: 0.9050,
-        recall: 0.9100,
-        f1: 0.9080,
-        roc_auc: 0.9340
-      }
-    });
+    useState<Evaluation | null>(null);
 
   const [evaluationLoading, setEvaluationLoading] =
-    useState(false);
+    useState(true);
 
   const [evaluationError, setEvaluationError] =
     useState("");
@@ -165,29 +119,10 @@ export default function Home() {
   // ============================================================
 
   const [comparison, setComparison] =
-    useState<Comparison | null>({
-      title: "GCN vs HaGAT Benchmark Comparison",
-      description: "Performance comparison against baseline GCN architecture",
-      models: {
-        GCN: {
-          accuracy: 0.7850,
-          precision: 0.7910,
-          recall: 0.7780,
-          f1: 0.7844,
-          roc_auc: 0.8250
-        },
-        HaGAT: {
-          accuracy: 0.9120,
-          precision: 0.9050,
-          recall: 0.9100,
-          f1: 0.9080,
-          roc_auc: 0.9340
-        }
-      }
-    });
+    useState<Comparison | null>(null);
 
   const [comparisonLoading, setComparisonLoading] =
-    useState(false);
+    useState(true);
 
   const [comparisonError, setComparisonError] =
     useState("");
@@ -203,82 +138,18 @@ export default function Home() {
   // ============================================================
 
   useEffect(() => {
-    async function loadHistory() {
-      try {
-        const token = localStorage.getItem(
-          "drugMicrobeAuthToken"
-        );
+    try {
+      const saved = localStorage.getItem(
+        "drugMicrobePredictionHistory"
+      );
 
-        if (!token) {
-          return;
-        }
-
-        const response = await fetch(
-          `${API_URL}/history`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = await response.json().catch(
-          () => ({})
-        );
-
-        if (response.status === 401) {
-          localStorage.removeItem(
-            "drugMicrobeAuthToken"
-          );
-          localStorage.removeItem(
-            "drugMicrobeAuthUser"
-          );
-
-          router.replace("/login");
-          return;
-        }
-
-        if (!response.ok) {
-          console.error(
-            "History API error:",
-            response.status,
-            data
-          );
-
-          throw new Error(
-            data.detail ||
-            "Failed to load prediction history."
-          );
-        }
-
-        const backendHistory = Array.isArray(data.history)
-          ? data.history.map((item: any) => ({
-              id: item.id,
-              drug: item.drug_name ?? "Unknown Drug",
-              microbe:
-                item.microbe_name ?? "Unknown Microbe",
-              prediction:
-                item.prediction >= 0.5
-                  ? "Interaction"
-                  : "No Interaction",
-              probability:
-                item.prediction <= 1
-                  ? item.prediction * 100
-                  : item.prediction,
-              timestamp: item.created_at,
-            }))
-          : [];
-
-        setHistory(backendHistory);
-      } catch (err) {
-        console.error("History error:", err);
+      if (saved) {
+        setHistory(JSON.parse(saved));
       }
+    } catch (err) {
+      console.error("History error:", err);
     }
-
-    loadHistory();
-  }, [router]);
+  }, []);
 
   // ============================================================
   // LOAD DRUGS + MICROBES
@@ -320,6 +191,42 @@ export default function Home() {
   }, []);
 
   // ============================================================
+  // LOAD EVALUATION
+  // ============================================================
+
+  useEffect(() => {
+    async function loadEvaluation() {
+      try {
+        setEvaluationLoading(true);
+
+        const response = await fetch(
+          `${API_URL}/evaluation`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to load evaluation."
+          );
+        }
+
+        const data = await response.json();
+
+        setEvaluation(data);
+      } catch (err) {
+        console.error(err);
+
+        setEvaluationError(
+          "Unable to load model evaluation."
+        );
+      } finally {
+        setEvaluationLoading(false);
+      }
+    }
+
+    loadEvaluation();
+  }, []);
+
+  // ============================================================
   // LOAD DATASET STATS
   // ============================================================
 
@@ -344,6 +251,43 @@ export default function Home() {
     }
 
     loadStats();
+  }, []);
+
+  // ============================================================
+  // LOAD MODEL COMPARISON
+  // ============================================================
+
+  useEffect(() => {
+    async function loadComparison() {
+      try {
+        setComparisonLoading(true);
+        setComparisonError("");
+
+        const response = await fetch(
+          `${API_URL}/comparison`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Comparison endpoint unavailable."
+          );
+        }
+
+        const data = await response.json();
+
+        setComparison(data);
+      } catch (err) {
+        console.error(err);
+
+        setComparisonError(
+          "GCN vs HaGAT comparison is not available yet."
+        );
+      } finally {
+        setComparisonLoading(false);
+      }
+    }
+
+    loadComparison();
   }, []);
 
   // ============================================================
@@ -382,6 +326,58 @@ export default function Home() {
   }, [microbes, microbeSearch]);
 
   // ============================================================
+  // SAVE HISTORY
+  // ============================================================
+
+  function saveHistory(
+    drug: Item,
+    microbe: Item,
+    result: Prediction
+  ) {
+    let probability =
+      typeof result.probability === "number"
+        ? result.probability
+        : 0;
+
+    if (probability <= 1) {
+      probability *= 100;
+    }
+
+    const interaction =
+      result.interaction ??
+      result.prediction
+        ?.toLowerCase()
+        .includes("interaction") ??
+      false;
+
+    const item: HistoryItem = {
+      id: Date.now(),
+      drug: drug.name,
+      microbe: microbe.name,
+      prediction:
+        result.prediction ??
+        (interaction
+          ? "Interaction"
+          : "No Interaction"),
+      probability,
+      timestamp:
+        new Date().toLocaleString(),
+    };
+
+    setHistory((previous) => {
+      const updated = [item, ...previous]
+        .slice(0, 10);
+
+      localStorage.setItem(
+        "drugMicrobePredictionHistory",
+        JSON.stringify(updated)
+      );
+
+      return updated;
+    });
+  }
+
+  // ============================================================
   // PREDICT
   // ============================================================
 
@@ -407,8 +403,8 @@ export default function Home() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("drugMicrobeAuthToken") ?? ""}`,
+            "Content-Type":
+              "application/json",
           },
           body: JSON.stringify({
             drug_id: selectedDrug.id,
@@ -428,6 +424,11 @@ export default function Home() {
 
       setPrediction(data);
 
+      saveHistory(
+        selectedDrug,
+        selectedMicrobe,
+        data
+      );
     } catch (err) {
       console.error(err);
 
@@ -445,40 +446,12 @@ export default function Home() {
   // CLEAR HISTORY
   // ============================================================
 
-  async function clearHistory() {
-    try {
-      const token = localStorage.getItem(
-        "drugMicrobeAuthToken"
-      );
+  function clearHistory() {
+    localStorage.removeItem(
+      "drugMicrobePredictionHistory"
+    );
 
-      if (!token) {
-        router.replace("/login");
-        return;
-      }
-
-      const response = await fetch(
-        `${API_URL}/history`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          "Unable to clear prediction history."
-        );
-      }
-
-      setHistory([]);
-    } catch (err) {
-      console.error("Clear history error:", err);
-      setError(
-        "Unable to clear prediction history."
-      );
-    }
+    setHistory([]);
   }
 
   // ============================================================
@@ -551,87 +524,73 @@ export default function Home() {
   // ============================================================
 
   return (
-    <main className="min-h-screen text-white">
-      <div className="mx-auto max-w-[1500px] px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-slate-950 text-white">
+      <div className="mx-auto max-w-7xl px-6 py-10">
 
         {/* HEADER */}
 
-        <header className="relative mb-10 overflow-hidden rounded-[2rem] border border-cyan-300/10 bg-[linear-gradient(135deg,rgba(24,20,61,0.92),rgba(10,12,34,0.84))] p-7 shadow-[0_25px_90px_rgba(0,0,0,0.35)] backdrop-blur-xl md:p-10">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
+        <header className="mb-10">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-300">
             <span className="h-2 w-2 rounded-full bg-cyan-400" />
             AI-powered interaction prediction
           </div>
 
-          <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
             DrugMicrobe AI
           </h1>
 
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300/75 sm:text-lg">
-            Predict potential drug&ndash;microorganism
+          <p className="mt-3 max-w-2xl text-slate-400">
+            Predict potential drug–microorganism
             interactions using our trained HaGAT
-            graph neural network[cite: 2, 7].
+            graph neural network.
           </p>
 
-          <div className="mt-4 text-sm font-medium tracking-wide text-violet-200/55">
-            Heterogeneous Graph Attention Network[cite: 2, 7]
-          </div>
-
-          <div className="mt-6 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.removeItem("drugMicrobeAuthToken");
-                localStorage.removeItem("drugMicrobeAuthUser");
-                router.replace("/login");
-              }}
-              className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-rose-300/30 hover:bg-rose-300/10 hover:text-rose-200"
-            >
-              Logout
-            </button>
+          <div className="mt-3 text-sm text-slate-500">
+            Heterogeneous Graph Attention Network
           </div>
         </header>
 
         {/* DATASET OVERVIEW */}
 
         {datasetStats && (
-          <section className="mb-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <section className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_16px_45px_rgba(0,0,0,0.22)] backdrop-blur-xl">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Dataset Records
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-cyan-200">
-                {datasetStats.total_records?.toLocaleString() ?? "\u2014"}
+              <p className="mt-2 text-3xl font-bold text-cyan-300">
+                {datasetStats.total_records?.toLocaleString() ?? "—"}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_16px_45px_rgba(0,0,0,0.22)] backdrop-blur-xl">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Unique Drugs
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-cyan-200">
-                {datasetStats.unique_drugs?.toLocaleString() ?? "\u2014"}
+              <p className="mt-2 text-3xl font-bold text-cyan-300">
+                {datasetStats.unique_drugs?.toLocaleString() ?? "—"}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_16px_45px_rgba(0,0,0,0.22)] backdrop-blur-xl">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Unique Microbes
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-cyan-200">
-                {datasetStats.unique_microbes?.toLocaleString() ?? "\u2014"}
+              <p className="mt-2 text-3xl font-bold text-cyan-300">
+                {datasetStats.unique_microbes?.toLocaleString() ?? "—"}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_16px_45px_rgba(0,0,0,0.22)] backdrop-blur-xl">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Graph Nodes
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-cyan-200">
+              <p className="mt-2 text-3xl font-bold text-cyan-300">
                 {(
                   (datasetStats.unique_drugs ?? 0) +
                   (datasetStats.unique_microbes ?? 0)
@@ -644,29 +603,30 @@ export default function Home() {
 
         {/* PREDICTION */}
 
-        <div className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
+        <div className="grid gap-6 lg:grid-cols-2">
 
           {/* INPUT */}
 
-          <section className="glass-panel-strong depth-card overflow-hidden">
+          <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl">
 
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
-              Interactive Prediction Portal
+              Prediction Engine
             </p>
 
             <h2 className="mt-2 text-2xl font-semibold">
-              Drug&ndash;Microbe Interaction Prediction
+              Drug–Microbe Interaction Prediction
             </h2>
 
             <p className="mt-2 text-sm text-slate-400">
-              Select a biological pair and run the HaGAT model.
+              Enter the identifiers for a drug and
+              microbe.
             </p>
 
             {/* DRUG */}
 
             <div className="mt-7">
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                Drug entity
+              <label className="mb-2 block text-sm font-medium text-slate-300">
+                Drug ID
               </label>
 
               <input
@@ -686,11 +646,11 @@ export default function Home() {
                     ? "Loading drugs..."
                     : "Search drug..."
                 }
-                className="neon-input"
+                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400"
               />
 
               {!selectedDrug && (
-                <div className="mt-2 max-h-52 overflow-y-auto rounded-2xl border border-white/10 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
+                <div className="mt-2 max-h-52 overflow-y-auto rounded-xl border border-slate-800 bg-slate-950">
 
                   {filteredDrugs.map((drug) => (
                     <button
@@ -699,7 +659,7 @@ export default function Home() {
                         setSelectedDrug(drug);
                         setDrugSearch("");
                       }}
-                    className="block w-full border-b border-white/5 px-4 py-3 text-left transition hover:bg-cyan-300/[0.06]"
+                      className="block w-full border-b border-slate-800 px-4 py-3 text-left transition hover:bg-slate-800"
                     >
                       <div className="font-medium">
                         {drug.name}
@@ -724,8 +684,8 @@ export default function Home() {
             {/* MICROBE */}
 
             <div className="mt-6">
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                Microbe entity
+              <label className="mb-2 block text-sm font-medium text-slate-300">
+                Microbe ID
               </label>
 
               <input
@@ -745,11 +705,11 @@ export default function Home() {
                     ? "Loading microbes..."
                     : "Search microorganism..."
                 }
-                className="neon-input"
+                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400"
               />
 
               {!selectedMicrobe && (
-                <div className="mt-2 max-h-52 overflow-y-auto rounded-2xl border border-white/10 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
+                <div className="mt-2 max-h-52 overflow-y-auto rounded-xl border border-slate-800 bg-slate-950">
 
                   {filteredMicrobes.map((microbe) => (
                     <button
@@ -760,7 +720,7 @@ export default function Home() {
                         );
                         setMicrobeSearch("");
                       }}
-                    className="block w-full border-b border-white/5 px-4 py-3 text-left transition hover:bg-cyan-300/[0.06]"
+                      className="block w-full border-b border-slate-800 px-4 py-3 text-left transition hover:bg-slate-800"
                     >
                       <div className="font-medium">
                         {microbe.name}
@@ -786,10 +746,10 @@ export default function Home() {
 
             {(selectedDrug ||
               selectedMicrobe) && (
-              <div className="mt-6 rounded-2xl border border-cyan-300/10 bg-cyan-300/[0.035] p-5 shadow-inner">
+              <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-950 p-4">
 
                 <p className="text-xs uppercase tracking-wider text-slate-500">
-                  Selected Biological Pair
+                  Selected Pair
                 </p>
 
                 {selectedDrug && (
@@ -798,7 +758,7 @@ export default function Home() {
                       Drug
                     </span>
 
-                    <span className="text-right text-sm font-medium text-cyan-200">
+                    <span className="text-right text-sm font-medium text-cyan-300">
                       {selectedDrug.name}
                     </span>
                   </div>
@@ -810,7 +770,7 @@ export default function Home() {
                       Microbe
                     </span>
 
-                    <span className="text-right text-sm font-medium text-cyan-200">
+                    <span className="text-right text-sm font-medium text-cyan-300">
                       {selectedMicrobe.name}
                     </span>
                   </div>
@@ -821,7 +781,7 @@ export default function Home() {
             {/* ERROR */}
 
             {error && (
-              <div className="mt-5 rounded-2xl border border-rose-300/20 bg-rose-300/[0.06] p-4 text-sm text-rose-200">
+              <div className="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
                 {error}
               </div>
             )}
@@ -835,7 +795,7 @@ export default function Home() {
                 !selectedDrug ||
                 !selectedMicrobe
               }
-              className="neon-button mt-6 flex w-full items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-40"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3.5 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {loadingPrediction ? (
                 <>
@@ -850,10 +810,10 @@ export default function Home() {
 
           {/* RESULT */}
 
-          <section className="glass-panel-strong depth-card overflow-hidden">
+          <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl">
 
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
-              HaGAT Analysis
+              Analysis Result
             </p>
 
             <h2 className="mt-2 text-2xl font-semibold">
@@ -861,10 +821,10 @@ export default function Home() {
             </h2>
 
             {!prediction ? (
-              <div className="flex min-h-[470px] items-center justify-center text-center">
+              <div className="flex min-h-[450px] items-center justify-center text-center">
                 <div>
-                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-cyan-300/20 bg-cyan-300/[0.05] text-4xl shadow-[0_0_45px_rgba(94,231,255,0.08)]">
-                    &#x1F9EC;
+                  <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-800 bg-slate-950 text-4xl">
+                    🧬
                   </div>
 
                   <p className="mt-5 font-medium text-slate-300">
@@ -880,7 +840,7 @@ export default function Home() {
             ) : (
               <div className="mt-7">
 
-                <div className="rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_50%_20%,rgba(94,231,255,0.08),transparent_42%),rgba(6,8,26,0.78)] p-7 text-center shadow-inner">
+                <div className="rounded-3xl border border-slate-700 bg-slate-950 p-7 text-center">
 
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                     Predicted Outcome
@@ -896,251 +856,66 @@ export default function Home() {
                     {predictionText}
                   </h3>
 
-                  <div className="confidence-stage mt-6">
-                    <div className="confidence-glow" />
-
-                    <div className="confidence-ring">
-                      <svg viewBox="0 0 120 120" aria-hidden="true">
-                        <circle
-                          cx="60"
-                          cy="60"
-                          r="48"
-                          fill="none"
-                          stroke="rgba(255,255,255,0.08)"
-                          strokeWidth="8"
-                        />
-
-                        <circle
-                          cx="60"
-                          cy="60"
-                          r="48"
-                          fill="none"
-                          stroke={isInteraction ? "#56f0c7" : "#ffd98a"}
-                          strokeWidth="8"
-                          strokeLinecap="round"
-                          strokeDasharray={301.59}
-                          strokeDashoffset={
-                            301.59 -
-                            (301.59 *
-                              Math.min(
-                                Math.max(
-                                  probabilityPercent,
-                                  0
-                                ),
-                                100
-                              )) /
-                              100
-                          }
-                        />
-                      </svg>
-
-                      <div className="confidence-value">
-                        <span className="text-5xl font-semibold tracking-tight text-white">
-                          {probabilityPercent.toFixed(1)}%
-                        </span>
-
-                        <span className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                          Confidence
-                        </span>
-                      </div>
-                    </div>
+                  <div className="mt-8 text-6xl font-bold">
+                    {probabilityPercent.toFixed(1)}%
                   </div>
 
                   <p className="mt-2 text-sm text-slate-500">
                     Interaction Probability
                   </p>
 
-                  {prediction.explanation && (
-                    <div className="mt-7 rounded-2xl border border-white/10 bg-white/[0.025] p-5 text-left">
-                      <div className="flex items-center justify-between gap-3">
-                        <div>
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-400">
-                            Why this prediction?
-                          </p>
-
-                          <h4 className="mt-1 text-lg font-semibold text-white">
-                            Graph-based context
-                          </h4>
-                        </div>
-
-                        <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-200">
-                          Explainability
-                        </span>
-                      </div>
-
-                      <p className="mt-2 text-xs leading-5 text-slate-500">
-                        This summary shows observed graph relationships around
-                        the selected drug and microorganism. It is contextual
-                        evidence, not a direct readout of internal attention weights.
-                      </p>
-
-                      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                        <div className="rounded-xl border border-cyan-300/10 bg-cyan-300/[0.035] p-4">
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">
-                            Drug context
-                          </p>
-
-                          <p className="mt-2 text-2xl font-semibold text-cyan-300">
-                            {prediction.explanation.drug_neighbor_count ?? 0}
-                          </p>
-
-                          <p className="mt-1 text-xs text-slate-500">
-                            connected microbes
-                          </p>
-                        </div>
-
-                        <div className="rounded-xl border border-emerald-300/10 bg-emerald-300/[0.03] p-4">
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">
-                            Microbe context
-                          </p>
-
-                          <p className="mt-2 text-2xl font-semibold text-emerald-300">
-                            {prediction.explanation.microbe_neighbor_count ?? 0}
-                          </p>
-
-                          <p className="mt-1 text-xs text-slate-500">
-                            connected drugs
-                          </p>
-                        </div>
-
-                        <div className="rounded-xl border border-purple-300/10 bg-purple-300/[0.03] p-4">
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">
-                            Shared context
-                          </p>
-
-                          <p className="mt-2 text-2xl font-semibold text-purple-300">
-                            {prediction.explanation.common_neighbor_count ?? 0}
-                          </p>
-
-                          <p className="mt-1 text-xs text-slate-500">
-                            shared graph drugs
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                        <div>
-                          <p className="text-xs font-semibold text-slate-300">
-                            Connected microbes
-                          </p>
-
-                          <div className="mt-2 flex flex-wrap gap-2">
-                            {(prediction.explanation.drug_neighbors ?? [])
-                              .slice(0, 6)
-                              .map((item) => (
-                                <span
-                                  key={`microbe-${item.id}`}
-                                  className="rounded-full border border-cyan-300/10 bg-cyan-300/[0.04] px-3 py-1 text-xs text-cyan-100"
-                                >
-                                  {item.name}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-
-                        <div>
-                          <p className="text-xs font-semibold text-slate-300">
-                            Connected drugs
-                          </p>
-
-                          <div className="mt-2 flex flex-wrap gap-2">
-                            {(prediction.explanation.microbe_neighbors ?? [])
-                              .slice(0, 6)
-                              .map((item) => (
-                                <span
-                                  key={`drug-${item.id}`}
-                                  className="rounded-full border border-emerald-300/10 bg-emerald-300/[0.04] px-3 py-1 text-xs text-emerald-100"
-                                >
-                                  {item.name}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* ============================================================
-                      DETAILED PREDICTION BREAKDOWN & ATTENTION WEIGHTS UI
-                  ============================================================ */}
-                  {prediction.detailed_explanation && (
-                    <div className="mt-6 rounded-2xl border border-cyan-500/25 bg-slate-950/90 p-5 text-left shadow-xl">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
-                        Deep Prediction Breakdown & Explainability
-                      </p>
-                      
-                      <p className="mt-2 text-sm text-slate-300 leading-relaxed">
-                        {prediction.detailed_explanation.summary}
-                      </p>
-
-                      {/* Attention Weights Breakdown */}
-                      {prediction.detailed_explanation.attention_weights && (
-                        <div className="mt-4">
-                          <p className="text-xs font-semibold text-slate-400 mb-2">Multi-Head Attention Contributions:</p>
-                          <div className="space-y-2">
-                            {Object.entries(prediction.detailed_explanation.attention_weights).map(([key, value]) => (
-                              <div key={key} className="text-xs">
-                                <div className="flex justify-between text-slate-400 mb-1">
-                                  <span className="capitalize">{key.replaceAll("_", " ")}</span>
-                                  <span className="font-mono text-cyan-300">{(value * 100).toFixed(0)}%</span>
-                                </div>
-                                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                                  <div className="h-full bg-cyan-400" style={{ width: `${value * 100}%` }} />
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Pathway Insights */}
-                      {prediction.detailed_explanation.pathway_analysis && (
-                        <div className="mt-4 border-t border-slate-800/80 pt-3">
-                          <p className="text-xs font-semibold text-slate-400 mb-1">Biological Insights:</p>
-                          <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
-                            {prediction.detailed_explanation.pathway_analysis.map((insight, idx) => (
-                              <li key={idx}>{insight}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
+                  <div className="mt-7 h-3 overflow-hidden rounded-full bg-slate-800">
+                    <div
+                      className={`h-full rounded-full transition-all duration-700 ${
+                        isInteraction
+                          ? "bg-emerald-400"
+                          : "bg-amber-400"
+                      }`}
+                      style={{
+                        width: `${Math.min(
+                          Math.max(
+                            probabilityPercent,
+                            0
+                          ),
+                          100
+                        )}%`,
+                      }}
+                    />
+                  </div>
                 </div>
 
-                <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.025] p-5">
+                <div className="mt-5 rounded-2xl border border-slate-800 bg-slate-950 p-5">
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
                     Evaluated Biological Pair
                   </p>
 
                   <p className="mt-3 font-semibold">
-                    {selectedDrug?.name}
+                    💊 {selectedDrug?.name}
                   </p>
 
                   <p className="my-2 text-center text-slate-600">
-                    ?
+                    ↓
                   </p>
 
                   <p className="font-semibold">
-                    {selectedMicrobe?.name}
+                    🦠 {selectedMicrobe?.name}
                   </p>
                 </div>
 
                 <div className="mt-5 grid grid-cols-3 gap-3">
 
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4 text-center shadow-inner">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4 text-center">
                     <p className="text-xs text-slate-500">
                       Model
                     </p>
 
-                    <p className="mt-2 font-semibold text-cyan-200">
+                    <p className="mt-2 font-semibold text-cyan-300">
                       HaGAT
                     </p>
                   </div>
 
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4 text-center shadow-inner">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4 text-center">
                     <p className="text-xs text-slate-500">
                       Embedding
                     </p>
@@ -1150,7 +925,7 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4 text-center shadow-inner">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4 text-center">
                     <p className="text-xs text-slate-500">
                       Attention
                     </p>
@@ -1165,125 +940,6 @@ export default function Home() {
             )}
           </section>
         </div>
-
-        {/* ============================================================
-            ADVANCED AI/ML RESEARCH INSPECTOR & METRICS (UPDATED TO 256-DIM & 400 EPOCHS)
-        ============================================================ */}
-        <section className="mt-6 rounded-3xl border border-violet-500/30 bg-slate-900/90 p-6 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">
-                Deep Learning Core Inspector
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold">
-                Advanced AI/ML Architecture & Convergence Metrics
-              </h2>
-              <p className="mt-2 text-sm text-slate-400">
-                Real-time inspection of latent representations, multi-head attention coefficients, and optimization trajectories.
-              </p>
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-2xl border border-violet-500/20 bg-violet-500/10 px-4 py-2 text-xs font-semibold text-violet-300">
-              <span className="h-2 w-2 rounded-full bg-violet-400 animate-ping" />
-              PyTorch Geometric Engine Active
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-6 lg:grid-cols-3">
-            {/* 1. Latent Space & Hyperparameters */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <p className="text-xs uppercase tracking-wider text-violet-400">
-                Latent Space Inspector
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-white">Hyperparameters</h3>
-              
-              <div className="mt-4 space-y-3 text-sm">
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Hidden Dim (d_h)</span>
-                  <span className="font-mono text-cyan-300">256-dim</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Embedding Dim</span>
-                  <span className="font-mono text-cyan-300">64-dim</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Attention Heads (K)</span>
-                  <span className="font-mono text-cyan-300">4 Heads</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Optimizer / LR</span>
-                  <span className="font-mono text-cyan-300">Adam (3e-4)</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Multi-Head Attention Matrix Insights */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <p className="text-xs uppercase tracking-wider text-violet-400">
-                Attention Matrix (\alpha)
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-white">Multi-Head Weights</h3>
-              
-              <div className="mt-4 space-y-3">
-                <div>
-                  <div className="flex justify-between text-xs text-slate-400 mb-1">
-                    <span>Head 1 (Drug-Microbe Local)</span>
-                    <span className="text-emerald-400 font-mono">0.934</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-400 w-[93.4%]"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-xs text-slate-400 mb-1">
-                    <span>Head 2 (Substructure Global)</span>
-                    <span className="text-cyan-400 font-mono">0.912</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-cyan-400 w-[91.2%]"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-xs text-slate-400 mb-1">
-                    <span>Head 3 (Taxonomic Neighborhood)</span>
-                    <span className="text-violet-400 font-mono">0.958</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-violet-400 w-[95.8%]"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Training Convergence Status */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <p className="text-xs uppercase tracking-wider text-violet-400">
-                Convergence Tracker
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-white">Loss Trajectory</h3>
-              
-              <div className="mt-4 space-y-3 text-sm">
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Final Training Loss</span>
-                  <span className="font-mono text-emerald-400">0.4167</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Validation Loss</span>
-                  <span className="font-mono text-cyan-300">0.4326</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Completed Epochs</span>
-                  <span className="font-mono text-slate-300">400 / 400</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Convergence Status</span>
-                  <span className="font-mono text-emerald-400 font-semibold">Optimal (90%+)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ============================================================
             EVALUATION DASHBOARD
@@ -1301,7 +957,7 @@ export default function Home() {
 
           <p className="mt-2 text-sm text-slate-400">
             Performance metrics of the trained HaGAT
-            model on the evaluation dataset[cite: 2, 7].
+            model on the evaluation dataset.
           </p>
 
           {evaluationLoading && (
@@ -1365,7 +1021,7 @@ export default function Home() {
                         {metric.label}
                       </p>
 
-                      <p className="mt-3 text-3xl font-bold text-cyan-200">
+                      <p className="mt-3 text-3xl font-bold text-cyan-300">
                         {(metric.value * 100).toFixed(2)}%
                       </p>
 
@@ -1397,7 +1053,7 @@ export default function Home() {
                       Model
                     </p>
 
-                    <p className="mt-2 text-lg font-semibold text-cyan-200">
+                    <p className="mt-2 text-lg font-semibold text-cyan-300">
                       {evaluation.model}
                     </p>
                   </div>
@@ -1418,7 +1074,7 @@ export default function Home() {
                     </p>
 
                     <p className="mt-2 text-lg font-semibold">
-                      Heterogeneous GAT[cite: 2, 7]
+                      Heterogeneous GAT
                     </p>
                   </div>
 
@@ -1435,31 +1091,31 @@ export default function Home() {
                   <p className="mt-3 leading-7 text-slate-300">
                     The trained HaGAT model achieved an
                     accuracy of{" "}
-                    <span className="font-semibold text-cyan-200">
+                    <span className="font-semibold text-cyan-300">
                       {percent(
                         evaluation.metrics.accuracy
                       )}
                     </span>
                     , precision of{" "}
-                    <span className="font-semibold text-cyan-200">
+                    <span className="font-semibold text-cyan-300">
                       {percent(
                         evaluation.metrics.precision
                       )}
                     </span>
                     , recall of{" "}
-                    <span className="font-semibold text-cyan-200">
+                    <span className="font-semibold text-cyan-300">
                       {percent(
                         evaluation.metrics.recall
                       )}
                     </span>
                     , F1 score of{" "}
-                    <span className="font-semibold text-cyan-200">
+                    <span className="font-semibold text-cyan-300">
                       {percent(
                         evaluation.metrics.f1
                       )}
                     </span>
                     , and ROC-AUC of{" "}
-                    <span className="font-semibold text-cyan-200">
+                    <span className="font-semibold text-cyan-300">
                       {percent(
                         evaluation.metrics.roc_auc
                       )}
@@ -1470,7 +1126,7 @@ export default function Home() {
                 </div>
 
                 {/* =====================================================
-                    CONFUSION MATRIX + ROC CURVE
+                    NEW: CONFUSION MATRIX + ROC CURVE
                 ====================================================== */}
 
                 <div className="mt-6 grid gap-6 lg:grid-cols-2">
@@ -1485,7 +1141,7 @@ export default function Home() {
                       </p>
 
                       <h3 className="mt-2 text-xl font-semibold">
-                        Confusion Matrix[cite: 2, 7]
+                        Confusion Matrix
                       </h3>
 
                       <p className="mt-2 text-sm text-slate-500">
@@ -1530,7 +1186,7 @@ export default function Home() {
                       </p>
 
                       <h3 className="mt-2 text-xl font-semibold">
-                        ROC Curve[cite: 2, 7]
+                        ROC Curve
                       </h3>
 
                       <p className="mt-2 text-sm text-slate-500">
@@ -1626,7 +1282,7 @@ export default function Home() {
                           GCN
                         </th>
 
-                        <th className="px-5 py-4 text-cyan-200">
+                        <th className="px-5 py-4 text-cyan-300">
                           HaGAT
                         </th>
 
@@ -1669,7 +1325,7 @@ export default function Home() {
                                 {percent(gcn)}
                               </td>
 
-                              <td className="px-5 py-4 font-semibold text-cyan-200">
+                              <td className="px-5 py-4 font-semibold text-cyan-300">
                                 {percent(hagat)}
                               </td>
 
@@ -1734,7 +1390,7 @@ export default function Home() {
                               <span className="text-xs text-slate-500">
                                 GCN{" "}
                                 {gcn.toFixed(2)}%
-                                {" \u00B7 "}
+                                {" · "}
                                 HaGAT{" "}
                                 {hagat.toFixed(2)}%
                               </span>
@@ -1794,18 +1450,7 @@ export default function Home() {
         </section>
 
         {/* ============================================================
-            DRUG-MICROBE NETWORK GRAPH
-      ============================================================ */}
-
-      <div className="mt-6">
-        <DrugMicrobeGraph
-          selectedDrugId={selectedDrug?.id}
-          selectedMicrobeId={selectedMicrobe?.id}
-        />
-      </div>
-
-      {/* ============================================================
-         PREDICTION HISTORY
+            PREDICTION HISTORY
         ============================================================ */}
 
         <section className="mt-6 rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl">
@@ -1874,15 +1519,15 @@ export default function Home() {
                         <div className="flex flex-wrap items-center gap-2">
 
                           <span className="font-semibold">
-                            {item.drug}
+                            💊 {item.drug}
                           </span>
 
                           <span className="text-slate-600">
-                            ?
+                            →
                           </span>
 
-                          <span className="text-semibold">
-                            {item.microbe}
+                          <span className="font-semibold">
+                            🦠 {item.microbe}
                           </span>
 
                         </div>
@@ -1935,7 +1580,7 @@ export default function Home() {
         {/* FOOTER */}
 
         <footer className="mt-10 border-t border-slate-800 pt-6 text-center text-sm text-slate-500">
-          DrugMicrobe AI {"\u00B7"} Graph Neural Network Research Project
+          DrugMicrobe AI · Graph Neural Network Research Project
         </footer>
 
       </div>
