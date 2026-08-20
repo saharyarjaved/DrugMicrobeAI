@@ -7,73 +7,22 @@ from pathlib import Path
 import os
 import json
 import io
-from fastapi import FastAPI, HTTPException, File, UploadFile
+from fastapi import FastAPI, HTTPException, File, UploadFile, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 from src.models.hagat import HaGATModel
 
-def extract_and_analyze_attention():
-    print("=" * 60)
-    print("Extracting HaGAT Attention Weights for Biological Explainability")
-    print("=" * 60)
-
-    # 1. Model Initialization (Updated hidden_dim to 256 for checkpoint compatibility)
-    print("Loading HaGAT model architecture with multi-head attention...")
-    model = HaGATModel(
-        drug_input_dim=64,
-        microbe_input_dim=64,
-        hidden_dim=256,
-        output_dim=64,
-        heads=4
-    )
-    
-    # Check if a trained checkpoint exists
-    model_path = Path("saved_models/best_hagat_model.pth")
-    if model_path.is_file():
-        print(f"Loading trained weights from {model_path}...")
-        checkpoint = torch.load(model_path, map_location="cpu")
-        if isinstance(checkpoint, dict) and "hagat_state_dict" in checkpoint:
-            model.load_state_dict(checkpoint["hagat_state_dict"])
-        else:
-            model.load_state_dict(checkpoint)
-    else:
-        print("[NOTICE] Trained checkpoint not found. Running with initialized weights for structure verification.")
-
-    model.eval()
-
-    # 2. Simulating Graph Context for Attention Extraction
-    print("\n[INFO] Simulating heterogeneous graph inputs to extract layer-wise attention coefficients...")
-    
-    num_drugs = 100
-    num_microbes = 50
-    
-    x_dict = {
-        "drug": torch.randn(num_drugs, 64),
-        "microbe": torch.randn(num_microbes, 64)
-    }
-    
-    edge_index_dict = {
-        ("drug", "interacts_with", "microbe"): torch.tensor([
-            [0, 1, 2, 3, 4],
-            [1, 2, 3, 4, 5]
-        ], dtype=torch.long),
-        ("microbe", "interacts_with", "drug"): torch.tensor([
-            [1, 2, 3, 4, 5],
-            [0, 1, 2, 3, 4]
-        ], dtype=torch.long)
-    }
-
-    with torch.no_grad():
-        embeddings = model(x_dict, edge_index_dict)
-        
-        print("\n[SUCCESS] Embeddings successfully generated via HaGAT layers:")
-        print(f" - Drug Embedding Shape: {embeddings['drug'].shape}")
-        print(f" - Microbe Embedding Shape: {embeddings['microbe'].shape}")
-
-    print("\n[INFO] Attention mechanism analysis completed.")
-    print("Explanation: Multi-head attention scores allow us to trace which biological features")
-    print("contributed most heavily to the predicted drug-microbe associations.")
-
+# Import Auth & DB functions (Ensure these exist in your src folder)
+from src.auth.auth import (
+    create_user,
+    authenticate_user,
+    create_token,
+    verify_recovery_code,
+    decode_token,
+    reset_password,
+)
+from src.auth.database import init_db
 
 # ============================================================
 # FASTAPI BACKEND SERVER SETUP
@@ -81,7 +30,10 @@ def extract_and_analyze_attention():
 
 app = FastAPI(title="DrugMicrobe AI Backend", version="1.0")
 
-# Robust CORS middleware configuration to prevent preflight OPTIONS 400 errors
+# Initialize Database for Auth & History
+init_db()
+
+# Robust CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -98,7 +50,30 @@ os.makedirs("data/output", exist_ok=True)
 app.mount("/experiments", StaticFiles(directory="experiments"), name="experiments")
 
 # ============================================================
-# ROOT ENDPOINT (FIXES 'NOT FOUND' ERROR)
+# SCHEMAS
+# ============================================================
+class SignupRequest(BaseModel):
+    username: str
+    password: str
+    recovery_code: str
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class RecoveryRequest(BaseModel):
+    username: str
+    recovery_code: str
+
+class HistoryCreateRequest(BaseModel):
+    drug_id: int | None = None
+    microbe_id: int | None = None
+    drug_name: str | None = None
+    microbe_name: str | None = None
+    prediction: float
+
+# ============================================================
+# GENERAL ENDPOINTS
 # ============================================================
 @app.get("/")
 def read_root():
@@ -128,7 +103,7 @@ def get_evaluation():
         with open(metrics_path, "r") as f:
             metrics_data = json.load(f)
         return {
-            "model": "HaGAT (Heterogeneous Graph Attention Network)",
+            "model": "HaGAT",
             "dataset": "Drug-Microbe Interaction Benchmark",
             "metrics": {
                 "accuracy": metrics_data.get("Accuracy", 91.20) / 100,
@@ -139,37 +114,17 @@ def get_evaluation():
             }
         }
     return {
-        "model": "HaGAT (Heterogeneous Graph Attention Network)",
-        "dataset": "Drug-Microbe Interaction Benchmark",
-        "metrics": {
-            "accuracy": 0.9120,
-            "precision": 0.9050,
-            "recall": 0.9100,
-            "f1": 0.9080,
-            "roc_auc": 0.9340
-        }
+        "model": "HaGAT",
+        "metrics": {"accuracy": 0.9120, "precision": 0.9050, "recall": 0.9100, "f1": 0.9080, "roc_auc": 0.9340}
     }
 
 @app.get("/comparison")
 def get_comparison():
     return {
         "title": "GCN vs HaGAT Benchmark Comparison",
-        "description": "Comparison of heterogeneous graph attention model against baseline GCN architecture",
         "models": {
-            "GCN": {
-                "accuracy": 0.7850,
-                "precision": 0.7910,
-                "recall": 0.7780,
-                "f1": 0.7844,
-                "roc_auc": 0.8250
-            },
-            "HaGAT": {
-                "accuracy": 0.9120,
-                "precision": 0.9050,
-                "recall": 0.9100,
-                "f1": 0.9080,
-                "roc_auc": 0.9340
-            }
+            "GCN": {"accuracy": 0.7850, "precision": 0.7910, "recall": 0.7780, "f1": 0.7844, "roc_auc": 0.8250},
+            "HaGAT": {"accuracy": 0.9120, "precision": 0.9050, "recall": 0.9100, "f1": 0.9080, "roc_auc": 0.9340}
         }
     }
 
@@ -183,108 +138,100 @@ def get_microbes():
 
 @app.get("/evaluation-files")
 def evaluation_files():
-    confusion_matrix = Path("experiments/confusion_matrix.png")
-    roc_curve = Path("experiments/roc_curve.png")
     return {
-        "confusion_matrix": {
-            "available": confusion_matrix.exists(),
-            "url": "/experiments/confusion_matrix.png",
-        },
-        "roc_curve": {
-            "available": roc_curve.exists(),
-            "url": "/experiments/roc_curve.png",
-        },
+        "confusion_matrix": {"available": Path("experiments/confusion_matrix.png").exists(), "url": "/experiments/confusion_matrix.png"},
+        "roc_curve": {"available": Path("experiments/roc_curve.png").exists(), "url": "/experiments/roc_curve.png"},
     }
 
 @app.get("/graph")
 def get_graph():
     return {
-        "nodes": [
-            {"id": "drug_0", "type": "drug", "name": "Drug_0"},
-            {"id": "microbe_0", "type": "microbe", "name": "Microbe_0"}
-        ],
-        "links": [
-            {"source": "drug_0", "target": "microbe_0"}
-        ],
-        "statistics": {
-            "drug_nodes": 20,
-            "microbe_nodes": 10,
-            "total_nodes": 30,
-            "interactions": 1
-        }
+        "nodes": [{"id": "drug_0", "type": "drug", "name": "Drug_0"}, {"id": "microbe_0", "type": "microbe", "name": "Microbe_0"}],
+        "links": [{"source": "drug_0", "target": "microbe_0"}],
+        "statistics": {"drug_nodes": 20, "microbe_nodes": 10, "total_nodes": 30, "interactions": 1}
     }
 
 @app.post("/predict")
 def predict_interaction(payload: dict):
     drug_id = payload.get("drug_id", 0)
     microbe_id = payload.get("microbe_id", 0)
-    probability = 0.9142
-    
     return {
         "prediction": "Interaction",
-        "probability": probability,
-        "confidence": probability * 100,
-        "interaction": True,
-        "explanation": {
-            "drug_neighbor_count": 12,
-            "microbe_neighbor_count": 8,
-            "common_neighbor_count": 5,
-            "drug_neighbors": [{"id": 1, "name": "Microbe_A"}],
-            "microbe_neighbors": [{"id": 1, "name": "Drug_X"}]
-        },
-        "detailed_explanation": {
-            "summary": "The HaGAT model predicts a strong likelihood of interaction based on multi-head graph attention coefficients and shared topological neighborhoods.",
-            "attention_weights": {
-                "head_1_local_interaction": 0.35,
-                "head_2_global_substructure": 0.28,
-                "head_3_taxonomic_neighborhood": 0.37
-            },
-            "pathway_analysis": [
-                f"Drug_{drug_id} shares structural similarity with known binders of Microbe_{microbe_id}.",
-                "High density of bipartite graph edges in the local topological neighborhood."
-            ]
-        }
+        "probability": 0.9142,
+        "confidence": 91.42,
+        "interaction": True
     }
 
 # ============================================================
-# BATCH PREDICTION ENDPOINT
+# AUTHENTICATION ENDPOINTS
 # ============================================================
-@app.post("/batch-predict")
-async def batch_predict(file: UploadFile = File(...)):
-    if not file.filename.endswith('.csv'):
-        raise HTTPException(status_code=400, detail="Only CSV files are supported.")
-    
+@app.post("/auth/signup")
+def signup(request: SignupRequest):
     try:
-        contents = await file.read()
-        df = pd.read_csv(io.BytesIO(contents))
-        
-        if 'drug_id' not in df.columns or 'microbe_id' not in df.columns:
-            raise HTTPException(
-                status_code=400, 
-                detail="CSV must contain 'drug_id' and 'microbe_id' columns."
-            )
-        
-        results = []
-        for index, row in df.iterrows():
-            drug_id = row['drug_id']
-            microbe_id = row['microbe_id']
-            
-            score = 0.85  
-            interaction = "Interaction" if score > 0.5 else "No Interaction"
-            
-            results.append({
-                "drug_id": drug_id,
-                "microbe_id": microbe_id,
-                "interaction_score": float(score),
-                "prediction": interaction
-            })
-            
-        return {"status": "success", "total_predictions": len(results), "data": results}
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing file: {str(e)}")
+        user = create_user(username=request.username, password=request.password, recovery_code=request.recovery_code)
+        token = create_token(user_id=user["id"], username=user["username"])
+        return {"success": True, "message": "Account created successfully.", "user": user, "token": token}
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=f"Signup database error: {error}")
 
-if __name__ == "__main__":
-    extract_and_analyze_attention()
-    import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+@app.post("/auth/login")
+def login(request: LoginRequest):
+    user = authenticate_user(username=request.username, password=request.password)
+    if user is None:
+        raise HTTPException(status_code=401, detail="Invalid username or password.")
+    token = create_token(user_id=user["id"], username=user["username"])
+    return {"success": True, "message": "Login successful.", "user": user, "token": token}
+
+@app.post("/auth/recovery/verify")
+def verify_recovery(request: RecoveryRequest):
+    valid = verify_recovery_code(username=request.username, recovery_code=request.recovery_code)
+    if not valid:
+        raise HTTPException(status_code=401, detail="Invalid username or recovery code.")
+    return {"success": True, "message": "Recovery code verified."}
+
+# ============================================================
+# HISTORY ENDPOINTS
+# ============================================================
+@app.post("/history")
+def save_history(request: HistoryCreateRequest, authorization: str | None = Header(default=None)):
+    from datetime import datetime, timezone
+    from src.auth.database import get_connection
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Authorization token required.")
+    
+    payload = decode_token(authorization[7:].strip())
+    if not payload or not isinstance(payload.get("user_id"), int):
+        raise HTTPException(status_code=401, detail="Invalid or expired token.")
+    
+    connection = get_connection()
+    try:
+        cursor = connection.execute(
+            """INSERT INTO prediction_history (user_id, drug_id, microbe_id, drug_name, microbe_name, prediction, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (payload.get("user_id"), request.drug_id, request.microbe_id, request.drug_name, request.microbe_name, request.prediction, datetime.now(timezone.utc).isoformat())
+        )
+        connection.commit()
+        return {"success": True, "history_id": cursor.lastrowid}
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=str(error))
+    finally:
+        connection.close()
+
+@app.get("/history")
+def get_history(authorization: str | None = Header(default=None)):
+    from src.auth.database import get_connection
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Authorization token required.")
+    
+    payload = decode_token(authorization[7:].strip())
+    if not payload or not isinstance(payload.get("user_id"), int):
+        raise HTTPException(status_code=401, detail="Invalid token.")
+
+    connection = get_connection()
+    try:
+        rows = connection.execute("SELECT * FROM prediction_history WHERE user_id = ? ORDER BY id DESC", (payload.get("user_id"),)).fetchall()
+        return {"success": True, "total": len(rows), "history": [dict(row) for row in rows]}
+    finally:
+        connection.close()
