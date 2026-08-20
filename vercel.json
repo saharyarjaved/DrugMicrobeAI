@@ -1,17 +1,43 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
+
   "services": {
+
     "frontend": {
+
       "root": "frontend/",
+
       "framework": "nextjs"
+
     }
+
   },
+
   "rewrites": [
+
     {
-      "source": "/(.*)",
+
+      "source": "/svc/api/:path*",
+
       "destination": {
-        "service": "frontend"
+
+        "service": "backend"
+
       }
+
+    },
+
+    {
+
+      "source": "/(.*)",
+
+      "destination": {
+
+        "service": "frontend"
+
+      }
+
     }
+
   ]
+
 }
