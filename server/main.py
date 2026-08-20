@@ -83,7 +83,12 @@ app = FastAPI(title="DrugMicrobe AI Backend", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://drug-microbe-ai.vercel.app",
+        "https://drug-microbe-ai-saharyar-javeds-projects.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -198,7 +203,7 @@ def predict_interaction(payload: dict):
             "microbe_neighbors": [{"id": 1, "name": "Drug_X"}]
         },
         "detailed_explanation": {
-            "summary": "The HaGAT model predicts a strong likelihood of interaction based on multi-head graph attention coefficients and shared topological neighborhoods[cite: 2, 6].",
+            "summary": "The HaGAT model predicts a strong likelihood of interaction based on multi-head graph attention coefficients and shared topological neighborhoods.",
             "attention_weights": {
                 "head_1_local_interaction": 0.35,
                 "head_2_global_substructure": 0.28,
