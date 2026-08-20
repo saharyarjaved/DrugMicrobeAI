@@ -81,17 +81,14 @@ def extract_and_analyze_attention():
 
 app = FastAPI(title="DrugMicrobe AI Backend", version="1.0")
 
+# Robust CORS middleware configuration to prevent preflight OPTIONS 400 errors
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://drug-microbe-ai.vercel.app",
-        "https://drug-microbe-ai-saharyar-javeds-projects.vercel.app"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 os.makedirs("experiments", exist_ok=True)
