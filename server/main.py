@@ -44,7 +44,26 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
-# Custom Exception Handler to inject CORS headers on HTTP errors (like 400 Bad Request)
+# Custom Global Middleware & Exception Handler to inject CORS headers on ANY response (including 400 Bad Request)
+@app.middleware("http")
+async def add_cors_headers_to_all_responses(request: Request, call_next):
+    if request.method == "OPTIONS":
+        response = JSONResponse(content={"message": "OK"})
+    else:
+        try:
+            response = await call_next(request)
+        except Exception as error:
+            response = JSONResponse(
+                status_code=500,
+                content={"detail": str(error)}
+            )
+    
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return response
+
 @app.exception_handler(HTTPException)
 async def custom_http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
