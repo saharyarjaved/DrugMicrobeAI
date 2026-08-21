@@ -7,9 +7,10 @@ from pathlib import Path
 import os
 import json
 import io
-from fastapi import FastAPI, HTTPException, File, UploadFile, Header
+from fastapi import FastAPI, HTTPException, File, UploadFile, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from src.models.hagat import HaGATModel
 
@@ -33,15 +34,29 @@ app = FastAPI(title="DrugMicrobe AI Backend", version="1.0")
 # Initialize Database for Auth & History
 init_db()
 
-# Ultra-Robust CORS middleware to completely resolve Vercel connection blocks
+# Robust CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
     expose_headers=["*"],
 )
+
+# Custom Exception Handler to inject CORS headers on HTTP errors (like 400 Bad Request)
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*",
+        },
+    )
 
 os.makedirs("experiments", exist_ok=True)
 os.makedirs("data/output", exist_ok=True)
