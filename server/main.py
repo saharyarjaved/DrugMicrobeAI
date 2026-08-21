@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from src.models.hagat import HaGATModel
 
-# Import Auth & DB functions (Ensure these exist in your src folder)
+# Import Auth & DB functions
 from src.auth.auth import (
     create_user,
     authenticate_user,
@@ -33,12 +33,12 @@ app = FastAPI(title="DrugMicrobe AI Backend", version="1.0")
 # Initialize Database for Auth & History
 init_db()
 
-# Robust CORS middleware
+# Ultra-Robust CORS middleware to completely resolve Vercel connection blocks
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"],
 )
