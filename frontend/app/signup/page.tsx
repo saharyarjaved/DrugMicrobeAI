@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "https://drugmicrobeai.onrender.com";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://drugmicrobeai.onrender.com";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -171,3 +171,4 @@ export default function SignupPage() {
     </main>
   );
 }
+
